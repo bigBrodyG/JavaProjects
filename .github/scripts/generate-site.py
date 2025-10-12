@@ -664,7 +664,7 @@ def main():
             'output': 'docs/rettangolo-output.txt',
             'compile': 'docs/rettangolo-compile.log',
             'description': 'Calcolo di vertici e proprietà di un rettangolo',
-            'type': 'teoria'
+            'type': 'laboratorio'
         },
         {
             'name': 'vocalcount',
@@ -808,7 +808,7 @@ def main():
         .subtitle {{
             font-size: 1.25em;
             color: var(--text-primary);
-            margin-bottom: 24px;
+            margin-bottom: 100px;
             font-weight: 500;
             opacity: 0.9;
         }}
@@ -816,9 +816,9 @@ def main():
         .github-link {{
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
-            padding: 14px 28px;
+            padding: 16px 36px;
             border-radius: 12px;
             color: var(--text-primary);
             text-decoration: none;
@@ -828,6 +828,7 @@ def main():
             box-shadow: var(--shadow-md);
             position: relative;
             overflow: hidden;
+            margin: 16px;
         }}
         
         .github-link::before {{
@@ -1026,8 +1027,8 @@ def main():
 <body>
     <div class="container">
         <header>
-            <h1>School homeworks and exercises</h1>
-            <p class="subtitle">My own showcase for all my exercises and <br></p>
+            <h1>Java homeworks and exercises</h1>
+            <p class="subtitle">My own showcase for all my exercises in Java ICT class. <br></p>
             <a href="https://github.com/bigBrodyG/JavaProjects" class="github-link">
                 <i class="fab fa-github"></i>
                 View on GitHub
@@ -1039,7 +1040,6 @@ def main():
         </div>
         
         <footer>
-            <p>Generato automaticamente con GitHub Actions</p>
             <p style="margin-top: 10px;">
                 <a href="https://github.com/bigBrodyG/JavaProjects">bigBrodyG/JavaProjects</a>
             </p>
