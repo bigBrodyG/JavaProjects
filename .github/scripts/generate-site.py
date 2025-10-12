@@ -83,99 +83,146 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
         * {{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }}
         
+        :root {{
+            /* Palette scura moderna e accattivante */
+            --bg-primary: #0a0e27;
+            --bg-secondary: #151932;
+            --bg-tertiary: #1e2642;
+            --bg-card: linear-gradient(135deg, #1a1f3a 0%, #252b4a 100%);
+            --bg-code: #0f1421;
+            --text-primary: #f0f3ff;
+            --text-secondary: #a0a8c0;
+            --text-muted: #6b7599;
+            --accent-primary: #00d4ff;
+            --accent-secondary: #7c3aed;
+            --accent-tertiary: #ff006e;
+            --accent-success: #00ff88;
+            --accent-warning: #ffd60a;
+            --accent-error: #ff4757;
+            --border-default: #2d3551;
+            --border-accent: rgba(0, 212, 255, 0.3);
+            --glow-primary: rgba(0, 212, 255, 0.4);
+            --glow-secondary: rgba(124, 58, 237, 0.4);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+            --shadow-glow: 0 0 20px var(--glow-primary);
+        }}
+        
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #1e1e1e;
-            color: #d4d4d4;
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }}
         
         header {{
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 30px;
+            background: var(--bg-secondary);
+            padding: 20px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
         }}
         
         header h1 {{
-            font-size: 1.8em;
+            font-size: 1.5em;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 10px;
+            color: var(--text-primary);
+        }}
+        
+        header h1 i {{
+            color: var(--accent-primary);
         }}
         
         .back-btn {{
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: none;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 14px;
-            transition: background 0.3s;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }}
         
         .back-btn:hover {{
-            background: rgba(255,255,255,0.3);
+            background: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }}
         
         .container {{
             display: flex;
             flex: 1;
             overflow: hidden;
+            background: var(--bg-primary);
         }}
         
         .left-panel {{
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: #252526;
-            border-right: 1px solid #3e3e42;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-light);
         }}
         
         .tabs {{
             display: flex;
-            background: #2d2d30;
-            border-bottom: 1px solid #3e3e42;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 0 16px;
             overflow-x: auto;
         }}
         
         .tab-button {{
             background: transparent;
             border: none;
-            color: #969696;
+            color: var(--text-muted);
             padding: 12px 20px;
             cursor: pointer;
-            border-bottom: 2px solid transparent;
+            border-radius: 8px;
             font-size: 13px;
+            font-weight: 600;
             white-space: nowrap;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
+            font-family: 'Fira Code', monospace;
+            border: 1px solid transparent;
         }}
         
         .tab-button:hover {{
-            color: #d4d4d4;
-            background: #2a2d2e;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            border-color: var(--border-accent);
         }}
         
         .tab-button.active {{
-            color: white;
-            border-bottom-color: #667eea;
-            background: #1e1e1e;
+            color: var(--accent-primary);
+            background: var(--bg-primary);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 12px var(--glow-primary);
         }}
         
         .code-area {{
@@ -200,56 +247,61 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
         
         .tab-content pre code {{
             display: block;
-            padding: 20px !important;
-            background: #1e1e1e !important;
+            padding: 24px !important;
+            background: var(--bg-code) !important;
             height: 100%;
             font-size: 14px;
             line-height: 1.6;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            color: var(--text-primary) !important;
         }}
         
         .right-panel {{
-            width: 500px;
+            width: 45%;
             display: flex;
             flex-direction: column;
-            background: #1e1e1e;
+            background: var(--bg-secondary);
+            border-left: 2px solid var(--border-default);
         }}
         
         .run-header {{
-            background: #2d2d30;
-            padding: 15px 20px;
-            border-bottom: 1px solid #3e3e42;
+            background: var(--bg-tertiary);
+            padding: 16px 24px;
+            border-bottom: 2px solid var(--border-default);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }}
         
         .run-header h2 {{
-            font-size: 1.1em;
-            color: #cccccc;
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 10px;
         }}
         
         .run-btn {{
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--accent-primary);
             color: white;
             border: none;
-            padding: 10px 25px;
-            border-radius: 5px;
+            padding: 10px 24px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
         }}
         
         .run-btn:hover {{
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            background: var(--accent-secondary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }}
         
         .run-btn:active {{
@@ -264,69 +316,75 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
         
         .output-area {{
             flex: 1;
-            padding: 20px;
+            padding: 24px;
             overflow: auto;
-            background: #1e1e1e;
+            background: var(--bg-primary);
         }}
         
         .output-box {{
-            background: #0e0e0e;
-            border: 1px solid #3e3e42;
-            border-radius: 8px;
-            padding: 15px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 20px;
             min-height: 200px;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-family: 'Fira Code', 'Consolas', monospace;
             font-size: 13px;
             line-height: 1.6;
             white-space: pre-wrap;
             word-wrap: break-word;
-            color: #d4d4d4;
+            color: var(--text-primary);
+            box-shadow: var(--shadow-sm);
         }}
         
         .output-box.error {{
-            color: #f48771;
-            border-color: #f48771;
+            color: #dc2626;
+            background: #fef2f2;
+            border-color: #fecaca;
         }}
         
         .output-box.success {{
-            color: #4ec9b0;
+            color: var(--accent-success);
         }}
         
         .status-indicator {{
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 8px 16px;
+            border-radius: 8px;
             font-size: 13px;
-            margin-bottom: 15px;
+            font-weight: 500;
+            margin-bottom: 16px;
         }}
         
         .status-indicator.success {{
-            background: rgba(78, 201, 176, 0.1);
-            color: #4ec9b0;
-            border: 1px solid rgba(78, 201, 176, 0.3);
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--accent-success);
+            border: 1px solid var(--accent-success);
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
         }}
         
         .status-indicator.error {{
-            background: rgba(244, 135, 113, 0.1);
-            color: #f48771;
-            border: 1px solid rgba(244, 135, 113, 0.3);
+            background: rgba(255, 71, 87, 0.15);
+            color: var(--accent-error);
+            border: 1px solid var(--accent-error);
+            box-shadow: 0 0 10px rgba(255, 71, 87, 0.3);
         }}
         
         .status-indicator.running {{
-            background: rgba(102, 126, 234, 0.1);
-            color: #667eea;
-            border: 1px solid rgba(102, 126, 234, 0.3);
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--accent-primary);
+            border: 1px solid var(--accent-primary);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
         }}
         
         .spinner {{
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(0, 0, 0, 0.1);
             border-radius: 50%;
-            border-top: 2px solid #667eea;
-            width: 16px;
-            height: 16px;
-            animation: spin 1s linear infinite;
+            border-top: 2px solid currentColor;
+            width: 14px;
+            height: 14px;
+            animation: spin 0.6s linear infinite;
         }}
         
         @keyframes spin {{
@@ -335,13 +393,20 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
         }}
         
         .info-box {{
-            background: #2d2d30;
-            border-left: 3px solid #667eea;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            border-radius: 4px;
+            background: #ede9fe;
+            border-left: 3px solid var(--accent-primary);
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            border-radius: 8px;
             font-size: 13px;
-            color: #cccccc;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }}
+        
+        .info-box i {{
+            color: var(--accent-primary);
         }}
         
         @media (max-width: 1024px) {{
@@ -352,23 +417,25 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
             .right-panel {{
                 width: 100%;
                 border-left: none;
-                border-top: 1px solid #3e3e42;
+                border-top: 1px solid var(--border-light);
             }}
         }}
         
         .copy-btn {{
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(102, 126, 234, 0.8);
+            top: 12px;
+            right: 12px;
+            background: var(--accent-primary);
             color: white;
             border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
+            padding: 6px 14px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 12px;
+            font-weight: 500;
             opacity: 0;
-            transition: opacity 0.2s, background 0.2s;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
         }}
         
         .code-area:hover .copy-btn {{
@@ -376,7 +443,9 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
         }}
         
         .copy-btn:hover {{
-            background: rgba(102, 126, 234, 1);
+            background: var(--accent-secondary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }}
     </style>
 </head>
@@ -417,10 +486,6 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
                 </button>
             </div>
             <div class="output-area">
-                <div class="info-box">
-                    <i class="fas fa-info-circle"></i>
-                    Il codice è già compilato ed eseguito. Premi "Esegui" per vedere l'output animato.
-                </div>
                 <div id="statusIndicator"></div>
                 <div class="output-box" id="output">{escape_html(output) if output else 'Nessun output ancora...'}</div>
             </div>
@@ -562,7 +627,8 @@ def main():
             'sources': ['Cerchio/src/Cerchio.java'],
             'output': 'docs/cerchio-output.txt',
             'compile': 'docs/cerchio-compile.log',
-            'description': 'Classe per calcolare area e circonferenza di un cerchio'
+            'description': 'Classe per calcolare area e circonferenza di un cerchio',
+            'type': 'teoria'
         },
         {
             'name': 'mergeArray',
@@ -570,7 +636,8 @@ def main():
             'sources': ['mergeArray/src/mergeArrays.java'],
             'output': 'docs/mergearray-output.txt',
             'compile': 'docs/mergearray-compile.log',
-            'description': 'Unione e ordinamento di array'
+            'description': 'Unione e ordinamento di array',
+            'type': 'laboratorio'
         },
         {
             'name': 'OggettoCD',
@@ -578,7 +645,8 @@ def main():
             'sources': ['OggettoCD/src/Cd.java'],
             'output': 'docs/oggettocd-output.txt',
             'compile': 'docs/oggettocd-compile.log',
-            'description': 'Gestione di un catalogo CD'
+            'description': 'Gestione di un catalogo CD',
+            'type': 'laboratorio'
         },
         {
             'name': 'Punto',
@@ -586,7 +654,8 @@ def main():
             'sources': ['Punto/src/Punto.java'],
             'output': 'docs/punto-output.txt',
             'compile': 'docs/punto-compile.log',
-            'description': 'Rappresentazione di un punto nel piano cartesiano'
+            'description': 'Rappresentazione di un punto nel piano cartesiano',
+            'type': 'teoria'
         },
         {
             'name': 'Rettangolo',
@@ -594,7 +663,8 @@ def main():
             'sources': ['Rettangolo/src/Punto.java', 'Rettangolo/src/Rettangolo.java'],
             'output': 'docs/rettangolo-output.txt',
             'compile': 'docs/rettangolo-compile.log',
-            'description': 'Calcolo di vertici e proprietà di un rettangolo'
+            'description': 'Calcolo di vertici e proprietà di un rettangolo',
+            'type': 'teoria'
         },
         {
             'name': 'vocalcount',
@@ -602,7 +672,8 @@ def main():
             'sources': ['vocalcount/src/voc_count.java'],
             'output': 'docs/vocalcount-output.txt',
             'compile': 'docs/vocalcount-compile.log',
-            'description': 'Conteggio delle vocali in una stringa'
+            'description': 'Conteggio delle vocali in una stringa',
+            'type': 'laboratorio'
         }
     ]
     
@@ -627,17 +698,17 @@ def main():
     # Generate index page with project cards
     project_cards = ""
     for project in projects:
-        compile_result = read_file_safe(project['compile'])
-        status = "success" if not compile_result or "error:" not in compile_result.lower() else "error"
-        status_icon = "✅" if status == "success" else "❌"
-        status_text = "Compilato" if status == "success" else "Errori"
+        # Determine badge based on project type
+        badge_class = "success" if project['type'] == 'laboratorio' else "theory"
+        badge_icon = "🔬" if project['type'] == 'laboratorio' else "📚"
+        badge_text = project['type'].capitalize()
         
         project_cards += f'''
         <a href="{project['id']}.html" class="project-card">
             <div class="card-header">
                 <h2>{escape_html(project['name'])}</h2>
-                <span class="status-badge {status}">
-                    {status_icon} {status_text}
+                <span class="status-badge {badge_class}">
+                    {badge_icon} {badge_text}
                 </span>
             </div>
             <p class="card-description">{escape_html(project['description'])}</p>
@@ -658,6 +729,9 @@ def main():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Java Projects Showcase</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {{
             margin: 0;
@@ -665,11 +739,36 @@ def main():
             box-sizing: border-box;
         }}
         
+        :root {{
+            /* Palette scura moderna e accattivante */
+            --bg-primary: #0a0e27;
+            --bg-secondary: #151932;
+            --bg-tertiary: #1e2642;
+            --text-primary: #f0f3ff;
+            --text-secondary: #a0a8c0;
+            --text-muted: #6b7599;
+            --accent-primary: #00d4ff;
+            --accent-secondary: #7c3aed;
+            --accent-tertiary: #ff006e;
+            --accent-success: #00ff88;
+            --accent-warning: #ffd60a;
+            --accent-error: #ff4757;
+            --border-default: #2d3551;
+            --border-accent: rgba(0, 212, 255, 0.3);
+            --glow-primary: rgba(0, 212, 255, 0.4);
+            --glow-secondary: rgba(124, 58, 237, 0.4);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+            --shadow-glow: 0 0 20px var(--glow-primary);
+        }}
+        
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             min-height: 100vh;
-            padding: 20px;
+            padding: 40px 20px;
         }}
         
         .container {{
@@ -679,137 +778,234 @@ def main():
         
         header {{
             text-align: center;
-            color: white;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             padding: 40px 20px;
         }}
         
         h1 {{
             font-size: 3.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 12px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-tertiary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1.5px;
+            text-shadow: 0 0 40px var(--glow-primary);
+        }}
+        
+        h1 .emoji {{
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }}
+        
+        @keyframes bounce {{
+            0%, 100% {{ transform: translateY(0); }}
+            50% {{ transform: translateY(-10px); }}
+        }}
         }}
         
         .subtitle {{
-            font-size: 1.3em;
+            font-size: 1.25em;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            font-weight: 500;
             opacity: 0.9;
-            margin-bottom: 20px;
         }}
         
         .github-link {{
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 10px 20px;
-            border-radius: 25px;
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            padding: 14px 28px;
+            border-radius: 12px;
+            color: var(--text-primary);
             text-decoration: none;
-            transition: background 0.3s;
-            margin-top: 10px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--border-default);
+            font-weight: 600;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }}
+        
+        .github-link::before {{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--glow-primary), transparent);
+            transition: left 0.5s;
+        }}
+        
+        .github-link:hover::before {{
+            left: 100%;
         }}
         
         .github-link:hover {{
-            background: rgba(255,255,255,0.3);
+            border-color: var(--accent-primary);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow), var(--shadow-lg);
+            color: var(--accent-primary);
         }}
         
         .projects-grid {{
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
         }}
         
         .project-card {{
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border-radius: 20px;
+            padding: 32px;
             text-decoration: none;
             color: inherit;
             display: block;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid var(--border-default);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }}
+        
+        .project-card::before {{
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--glow-primary) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }}
+        
+        .project-card:hover::before {{
+            opacity: 0.15;
         }}
         
         .project-card:hover {{
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(0, 212, 255, 0.25), 0 0 40px var(--glow-secondary);
+            border-color: var(--accent-primary);
         }}
         
         .card-header {{
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 15px;
-            gap: 15px;
+            margin-bottom: 18px;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
         }}
         
         .card-header h2 {{
-            color: #764ba2;
-            font-size: 1.8em;
+            font-size: 1.7em;
             flex: 1;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
         }}
         
         .status-badge {{
             padding: 6px 12px;
             border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: bold;
+            font-size: 0.75em;
+            font-weight: 600;
             white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }}
         
         .status-badge.success {{
-            background: #d4edda;
-            color: #155724;
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--accent-success);
+            border: 2px solid var(--accent-success);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+        }}
+        
+        .status-badge.theory {{
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
         }}
         
         .status-badge.error {{
-            background: #f8d7da;
-            color: #721c24;
+            background: rgba(255, 71, 87, 0.15);
+            color: var(--accent-error);
+            border: 2px solid var(--accent-error);
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.4);
         }}
         
         .card-description {{
-            color: #666;
+            color: var(--text-primary);
             font-size: 1em;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            line-height: 1.7;
+            margin-bottom: 24px;
             min-height: 48px;
+            position: relative;
+            z-index: 1;
+            opacity: 0.85;
         }}
         
         .card-footer {{
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            padding-top: 15px;
-            border-top: 2px solid #f0f0f0;
+            padding-top: 20px;
+            border-top: 2px solid var(--border-default);
+            position: relative;
+            z-index: 1;
         }}
         
         .view-link {{
-            color: #667eea;
-            font-weight: bold;
+            color: var(--accent-primary);
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: gap 0.3s;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }}
         
         .project-card:hover .view-link {{
-            gap: 12px;
+            gap: 14px;
+            color: var(--accent-secondary);
+            text-shadow: 0 0 10px var(--glow-secondary);
         }}
         
         footer {{
             text-align: center;
-            color: white;
-            padding: 30px;
-            margin-top: 30px;
+            color: var(--text-secondary);
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 2px solid var(--border-default);
         }}
         
         footer a {{
-            color: white;
+            color: var(--accent-primary);
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 700;
+            transition: all 0.3s;
+            position: relative;
         }}
         
         footer a:hover {{
-            text-decoration: underline;
+            color: var(--accent-secondary);
+            text-shadow: 0 0 10px var(--glow-secondary);
         }}
         
         @media (max-width: 768px) {{
@@ -820,14 +1016,18 @@ def main():
             .projects-grid {{
                 grid-template-columns: 1fr;
             }}
+            
+            body {{
+                padding: 20px 15px;
+            }}
         }}
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>☕ Java Projects</h1>
-            <p class="subtitle">Progetti scolastici interattivi</p>
+            <h1>School homeworks and exercises</h1>
+            <p class="subtitle">My own showcase for all my exercises and <br></p>
             <a href="https://github.com/bigBrodyG/JavaProjects" class="github-link">
                 <i class="fab fa-github"></i>
                 View on GitHub
