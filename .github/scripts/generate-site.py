@@ -64,7 +64,7 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
     for i, file_data in enumerate(source_files_data):
         active = "active" if i == 0 else ""
         tabs_html += f'''
-            <button class="tab-button {active}" onclick="switchTab('{project_id}-tab{i}')">{escape_html(file_data['filename'])}</button>
+            <button class="tab-button {active}" data-tab="{project_id}-tab{i}">{escape_html(file_data['filename'])}</button>
         '''
         content_html += f'''
             <div id="{project_id}-tab{i}" class="tab-content {active}">
@@ -433,7 +433,10 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
         const buildStatus = {json.dumps(compile_status)};
         const precompiledOutput = {json.dumps(output)};
         
+        // Tab switching functionality
         function switchTab(tabId) {{
+            console.log('Switching to tab:', tabId);
+            
             // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(tab => {{
                 tab.classList.remove('active');
@@ -443,12 +446,30 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
             }});
             
             // Show selected tab
-            document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('active');
+            const selectedTab = document.getElementById(tabId);
+            if (selectedTab) {{
+                selectedTab.classList.add('active');
+            }}
+            
+            // Mark button as active
+            const clickedButton = document.querySelector(`[data-tab="${{tabId}}"]`);
+            if (clickedButton) {{
+                clickedButton.classList.add('active');
+            }}
             
             // Re-highlight
             hljs.highlightAll();
         }}
+        
+        // Add click handlers to tab buttons
+        document.addEventListener('DOMContentLoaded', function() {{
+            document.querySelectorAll('.tab-button').forEach(button => {{
+                button.addEventListener('click', function() {{
+                    const tabId = this.getAttribute('data-tab');
+                    switchTab(tabId);
+                }});
+            }});
+        }});
         
         function copyCode() {{
             const activeTab = document.querySelector('.tab-content.active code');
@@ -464,6 +485,7 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
         }}
         
         async function runCode() {{
+            console.log('runCode called');
             const runBtn = document.getElementById('runBtn');
             const output = document.getElementById('output');
             const statusIndicator = document.getElementById('statusIndicator');
@@ -478,9 +500,11 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
             output.textContent = 'Attendere...';
             
             try {{
-                // Use JDoodle API for compilation and execution
-                const code = sourceCode[0]; // Main file
+                // Get the main code (first file)
+                const code = sourceCode[0];
+                console.log('Code to execute:', code.substring(0, 100) + '...');
                 
+                // Use JDoodle API for compilation and execution
                 const response = await fetch('https://api.jdoodle.com/v1/execute', {{
                     method: 'POST',
                     headers: {{
@@ -495,7 +519,9 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
                     }})
                 }});
                 
+                console.log('Response status:', response.status);
                 const result = await response.json();
+                console.log('Result:', result);
                 
                 if (result.error) {{
                     statusIndicator.innerHTML = '<div class="status-indicator error"><i class="fas fa-times-circle"></i> Errore di compilazione</div>';
@@ -506,11 +532,12 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
                     output.className = 'output-box success';
                     output.textContent = result.output;
                 }} else {{
-                    statusIndicator.innerHTML = '<div class="status-indicator error"><i class="fas fa-exclamation-circle"></i> Errore</div>';
+                    statusIndicator.innerHTML = '<div class="status-indicator error"><i class="fas fa-exclamation-circle"></i> Nessun output</div>';
                     output.className = 'output-box error';
-                    output.textContent = 'Errore sconosciuto durante l\'esecuzione';
+                    output.textContent = 'Il programma è stato eseguito ma non ha prodotto output.\\n\\nOutput pre-compilato:\\n' + precompiledOutput;
                 }}
             }} catch (error) {{
+                console.error('Error during execution:', error);
                 statusIndicator.innerHTML = '<div class="status-indicator error"><i class="fas fa-exclamation-triangle"></i> Errore di rete</div>';
                 output.className = 'output-box error';
                 output.textContent = 'Errore: ' + error.message + '\\n\\nMostrando output pre-compilato:\\n\\n' + precompiledOutput;
@@ -522,16 +549,18 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
         }}
         
         // Initialize syntax highlighting
-        hljs.highlightAll();
-        
-        // Show precompiled status
-        if (buildStatus === 'success') {{
-            document.getElementById('statusIndicator').innerHTML = 
-                '<div class="status-indicator success"><i class="fas fa-check-circle"></i> Pre-compilato con successo</div>';
-        }} else {{
-            document.getElementById('statusIndicator').innerHTML = 
-                '<div class="status-indicator error"><i class="fas fa-times-circle"></i> Errori nella pre-compilazione</div>';
-        }}
+        document.addEventListener('DOMContentLoaded', function() {{
+            hljs.highlightAll();
+            
+            // Show precompiled status
+            if (buildStatus === 'success') {{
+                document.getElementById('statusIndicator').innerHTML = 
+                    '<div class="status-indicator success"><i class="fas fa-check-circle"></i> Pre-compilato con successo</div>';
+            }} else {{
+                document.getElementById('statusIndicator').innerHTML = 
+                    '<div class="status-indicator error"><i class="fas fa-times-circle"></i> Errori nella pre-compilazione</div>';
+            }}
+        }});
     </script>
 </body>
 </html>'''
