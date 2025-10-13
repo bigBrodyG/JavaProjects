@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mergeArray - Java Project</title>
+    <title>Libro - Java Project</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
@@ -379,7 +379,7 @@
     <header>
         <h1>
             <i class="fas fa-coffee"></i>
-            mergeArray
+            Libro
         </h1>
         <a href="index.html" class="back-btn">
             <i class="fas fa-arrow-left"></i>
@@ -391,40 +391,9 @@
         <div class="left-panel">
             <div class="tabs">
                 
-            <button class="tab-button active" data-tab="mergearray-tab0">mergeArrays.java</button>
-        
             </div>
             <div class="code-area" id="codeArea">
                 
-            <div id="mergearray-tab0" class="tab-content active">
-                <pre><code class="language-java">import java.util.Arrays;
-
-public class mergeArrays {
-    public static void main(String[] args) {
-        int[] first = {1, 4, 9};
-        int[] secnd = {2, 3, 7, 11};
-        int[] res = new int[first.length + secnd.length];
-        int i = 0;
-        int j = 0;
-        int k = 0;
-        while (i &lt; first.length &amp;&amp; j &lt; secnd.length) {
-            if (first[i] &lt;= secnd[j]) {
-                res[k++] = first[i++];
-            } else {
-                res[k++] = secnd[j++];
-            }
-        }
-        while (i &lt; first.length) {
-            res[k++] = first[i++];
-        }
-        while (j &lt; secnd.length) {
-            res[k++] = secnd[j++];
-        }
-        System.out.println(Arrays.toString(res));
-    }
-}</code></pre>
-            </div>
-        
                 <button class="copy-btn" onclick="copyCode()">
                     <i class="fas fa-copy"></i> Copia
                 </button>
@@ -444,18 +413,17 @@ public class mergeArrays {
             </div>
             <div class="output-area">
                 <div id="statusIndicator"></div>
-                <div class="output-box" id="output">[1, 2, 3, 4, 7, 9, 11]
-</div>
+                <div class="output-box" id="output">Nessun output ancora...</div>
             </div>
         </div>
     </div>
     
     <script>
         // Project data
-        const sourceCode = ["import java.util.Arrays;\n\npublic class mergeArrays {\n    public static void main(String[] args) {\n        int[] first = {1, 4, 9};\n        int[] secnd = {2, 3, 7, 11};\n        int[] res = new int[first.length + secnd.length];\n        int i = 0;\n        int j = 0;\n        int k = 0;\n        while (i < first.length && j < secnd.length) {\n            if (first[i] <= secnd[j]) {\n                res[k++] = first[i++];\n            } else {\n                res[k++] = secnd[j++];\n            }\n        }\n        while (i < first.length) {\n            res[k++] = first[i++];\n        }\n        while (j < secnd.length) {\n            res[k++] = secnd[j++];\n        }\n        System.out.println(Arrays.toString(res));\n    }\n}"];
-        const projectName = "mergeArray";
+        const sourceCode = [];
+        const projectName = "Libro";
         const buildStatus = "success";
-        const precompiledOutput = "[1, 2, 3, 4, 7, 9, 11]\n";
+        const precompiledOutput = "";
         
         // Tab switching functionality
         function switchTab(tabId) {

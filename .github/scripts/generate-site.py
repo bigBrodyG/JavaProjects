@@ -677,14 +677,22 @@ def main():
         },
         {
             'name': 'Libro',
-            'id': 'Libro',
+            'id': 'libro',
             'sources': ['Libro/src/Libro.java'],
-            'output': 'docs/Libro-output.txt',
-            'compile': 'docs/Libro-compile.log',
-            'description': 'Classe per parsing di libro',
+            'output': 'docs/libro-output.txt',
+            'compile': 'docs/libro-compile.log',
+            'description': 'Gestione di oggetti libro con calcolo del prezzo',
+            'type': 'teoria'
+        },
+        {
+            'name': 'Orario',
+            'id': 'orario',
+            'sources': ['Orario/src/Orario.java', 'Orario/src/TestOrario.java'],
+            'output': 'docs/orario-output.txt',
+            'compile': 'docs/orario-compile.log',
+            'description': 'Gestione e manipolazione di orari',
             'type': 'teoria'
         }
- 
     ]
     
     # Create docs directory
