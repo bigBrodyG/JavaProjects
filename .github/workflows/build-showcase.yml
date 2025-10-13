@@ -106,6 +106,12 @@ jobs:
           cd vocalcount/bin && java voc_count > ../../docs/vocalcount-output.txt 2>&1 || echo "Error running voc_count" > ../../docs/vocalcount-output.txt
           cd ../..
         fi
+        
+        # Run Libro
+        if [ -f "Libro/bin/Libro.class" ]; then
+          cd Libro/bin && java Libro > ../../docs/libro-output.txt 2>&1 || echo "Error running Libro" > ../../docs/libro-output.txt
+          cd ../..
+        fi
     
     - name: Generate website
       run: python3 .github/scripts/generate-site.py

@@ -674,7 +674,17 @@ def main():
             'compile': 'docs/vocalcount-compile.log',
             'description': 'Conteggio delle vocali in una stringa',
             'type': 'laboratorio'
+        },
+        {
+            'name': 'Libro',
+            'id': 'Libro',
+            'sources': ['Libro/src/Libro.java'],
+            'output': 'docs/Libro-output.txt',
+            'compile': 'docs/Libro-compile.log',
+            'description': 'Classe per parsing di libro',
+            'type': 'teoria'
         }
+ 
     ]
     
     # Create docs directory
