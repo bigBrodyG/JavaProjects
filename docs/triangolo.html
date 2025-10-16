@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Punto - Java Project</title>
+    <title>Triangolo - Java Project</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
@@ -400,7 +400,7 @@
     <header>
         <h1>
             <i class="fas fa-coffee"></i>
-            Punto
+            Triangolo
         </h1>
         <a href="index.html" class="back-btn">
             <i class="fas fa-arrow-left"></i>
@@ -412,13 +412,16 @@
         <div class="left-panel">
             <div class="tabs">
                 
-            <button class="tab-button active" data-tab="punto-tab0">Punto.java</button>
+            <button class="tab-button active" data-tab="triangolo-tab0">Punto.java</button>
+        
+            <button class="tab-button " data-tab="triangolo-tab1">Triangolo.java</button>
         
             </div>
             <div class="code-area" id="codeArea">
                 
-            <div id="punto-tab0" class="tab-content active">
+            <div id="triangolo-tab0" class="tab-content active">
                 <pre><code class="language-java">public class Punto {
+    private static final double EPSILON = 1e-9;
     private double x;
     private double y;
 
@@ -428,8 +431,7 @@
     }
 
     public Punto(Punto p) {
-        this.x = p.x;
-        this.y = p.y;
+        this(p.x, p.y);
     }
 
     public void setX(double x) {
@@ -455,33 +457,178 @@
     }
 
     public boolean equals(Punto p) {
-        return this.x == p.x &amp;&amp; this.y == p.y;
+        if (p == null) {
+            return false;
+        }
+        return Math.abs(this.x - p.x) &lt; EPSILON &amp;&amp; Math.abs(this.y - p.y) &lt; EPSILON;
     }
 
     @Override
     public String toString() {
         return &quot;(&quot; + x + &quot;, &quot; + y + &quot;)&quot;;
     }
-    public static void main(String[] args) {
-        Punto p1 = new Punto(3.0, 4.0);
-        Punto p2 = new Punto(0.0, 0.0);
-        Punto p3 = new Punto(p1);
-    
-        System.out.println(&quot;p1: &quot; + p1);
-        System.out.println(&quot;p2: &quot; + p2);
-        System.out.println(&quot;p3: &quot; + p3);
-    
-        System.out.println(&quot;space tra p1 e p2: &quot; + p1.distanza(p2));
+}
+</code></pre>
+            </div>
         
-        System.out.println(&quot;p1 == p2: &quot; + p1.equals(p2));
-        System.out.println(&quot;p1 == p3: &quot; + p1.equals(p3));
-    
-        p2.setX(3.0);
-        p2.setY(4.0);
-        System.out.println(&quot;p2: &quot; + p2);
-        System.out.println(&quot;p1 == p2: &quot; + p1.equals(p2));
+            <div id="triangolo-tab1" class="tab-content ">
+                <pre><code class="language-java">public class Triangolo {
+    private Punto p1;
+    private Punto p2;
+    private Punto p3;
+
+    public Triangolo(Punto p1, Punto p2, Punto p3) {
+        points(p1, p2, p3);
     }
-}</code></pre>
+
+    public Triangolo(Triangolo t) {
+        this(t.p1, t.p2, t.p3);
+    }
+
+    public void setP1(Punto p1) {
+        points(p1, this.p2, this.p3);
+    }
+
+    public void setP2(Punto p2) {
+        points(this.p1, p2, this.p3);
+    }
+
+    public void setP3(Punto p3) {
+        points(this.p1, this.p2, p3);
+    }
+
+    public Punto getP1() {
+        return new Punto(this.p1);
+    }
+
+    public Punto getP2() {
+        return new Punto(this.p2);
+    }
+
+    public Punto getP3() {
+        return new Punto(this.p3);
+    }
+
+    public double perim() {
+        double lato1 = len(this.p1, this.p2);
+        double lato2 = len(this.p2, this.p3);
+        double lato3 = len(this.p3, this.p1);
+        return lato1 + lato2 + lato3;
+    }
+
+    public double area() {
+        double lato1 = len(this.p1, this.p2);
+        double lato2 = len(this.p2, this.p3);
+        double lato3 = len(this.p3, this.p1);
+        double semiP = (lato1 + lato2 + lato3) / 2.0;
+        double areaQuad = semiP
+                * (semiP - lato1)
+                * (semiP - lato2)
+                * (semiP - lato3);
+
+        return Math.sqrt(Math.max(areaQuad, 0.0));
+    }
+
+    public boolean equals(Triangolo t) {
+        if (t == null) {
+            return false;
+        }
+        return this.p1.equals(t.p1)
+                &amp;&amp; this.p2.equals(t.p2)
+                &amp;&amp; this.p3.equals(t.p3);
+    }
+
+    public boolean equivale(Triangolo t) {
+        if (t == null) {
+            return false;
+        }
+
+        double[] latiMiei = {len(this.p1, this.p2), len(this.p2, this.p3), len(this.p3, this.p1)};
+        double[] latiSuoi = {len(t.p1, t.p2), len(t.p2, t.p3), len(t.p3, t.p1)};
+
+        sort(latiMiei);
+        sort(latiSuoi);
+
+        for (int i = 0; i &lt; latiMiei.length; i++) {
+            if (latiMiei[i] != latiSuoi[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Tri{&quot; +
+                &quot;p1=&quot; + this.p1 +
+                &quot;, p2=&quot; + this.p2 +
+                &quot;, p3=&quot; + this.p3 +
+                &#39;}&#39;;
+    }
+
+    private void points(Punto nuovoP1, Punto nuovoP2, Punto nuovoP3) {
+
+        this.p1 = new Punto(nuovoP1);
+        this.p2 = new Punto(nuovoP2);
+        this.p3 = new Punto(nuovoP3);
+    }
+
+    private boolean stannoInRiga(Punto pt1, Punto pt2, Punto pt3) {
+        double areaDoppia = pt1.getX() * (pt2.getY() - pt3.getY())
+                + pt2.getX() * (pt3.getY() - pt1.getY())
+                + pt3.getX() * (pt1.getY() - pt2.getY());
+        return areaDoppia == 0;
+    }
+
+    private double len(Punto pt1, Punto pt2) {
+        return pt1.distanza(pt2);
+    }
+
+    private void sort(double[] lati) {
+        for (int i = 0; i &lt; lati.length - 1; i++) {
+            for (int j = i + 1; j &lt; lati.length; j++) {
+                if (lati[i] &gt; lati[j]) {
+                    double tmp = lati[i];
+                    lati[i] = lati[j];
+                    lati[j] = tmp;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Punto p1 = new Punto(0, 0);
+        Punto p2 = new Punto(6, 0);
+        Punto p3 = new Punto(2, 5);
+
+        Triangolo tri = new Triangolo(p1, p2, p3);
+        System.out.println(&quot;Tri inizl: &quot; + tri);
+        System.out.println(&quot;Perimetr: &quot; + tri.perim());
+        System.out.println(&quot;Are: &quot; + tri.area());
+
+        Triangolo copia = new Triangolo(tri);
+        System.out.println(&quot;\nCopi: &quot; + copia);
+        System.out.println(&quot;equals(copi) -&gt; &quot; + tri.equals(copia));
+
+        Triangolo stessiPunti = new Triangolo(
+                new Punto(2, 5),
+                new Punto(0, 0),
+                new Punto(6, 0)
+        );
+        System.out.println(&quot;\nStessi pnti, ordin divers: &quot; + stessiPunti);
+        System.out.println(&quot;equals(stessiPnti) -&gt; &quot; + tri.equals(stessiPunti));
+        System.out.println(&quot;equivale(stessiPnti) -&gt; &quot; + tri.equivale(stessiPunti));
+
+        Triangolo triSimile = new Triangolo(
+                new Punto(0, 0),
+                new Punto(3, 0),
+                new Punto(1, 2.5)
+        );
+        System.out.println(&quot;\nLati in rapprt: &quot; + triSimile);
+        System.out.println(&quot;equivale(triSimile) -&gt; &quot; + tri.equivale(triSimile));
+    }
+}
+</code></pre>
             </div>
         
                 <button class="copy-btn" onclick="copyCode()">
@@ -503,14 +650,19 @@
             </div>
             <div class="output-area">
                 <div id="statusIndicator"></div>
-                <div class="output-box" id="output">p1: (3.0, 4.0)
-p2: (0.0, 0.0)
-p3: (3.0, 4.0)
-space tra p1 e p2: 5.0
-p1 == p2: false
-p1 == p3: true
-p2: (3.0, 4.0)
-p1 == p2: true
+                <div class="output-box" id="output">Triangolo originario: Triangolo{A=(0.0, 0.0), B=(6.0, 0.0), C=(2.0, 5.0)}
+Perimetro: 17.788289044567353
+Area: 15.000000000000002
+
+Copia del triangolo: Triangolo{A=(0.0, 0.0), B=(6.0, 0.0), C=(2.0, 5.0)}
+equals(copia) -&gt; true
+
+Triangolo con stessi vertici ma ordine differente: Triangolo{A=(2.0, 5.0), B=(0.0, 0.0), C=(6.0, 0.0)}
+equals(stessoEquilatero) -&gt; false
+equivale(stessoEquilatero) -&gt; true
+
+Triangolo con lati in rapporto 1: Triangolo{A=(0.0, 0.0), B=(3.0, 0.0), C=(1.0, 2.5)}
+equivale(triangoloSimile) -&gt; false
 </div>
             </div>
         </div>
@@ -518,10 +670,10 @@ p1 == p2: true
     
     <script>
         // Project data
-        const sourceCode = ["public class Punto {\n    private double x;\n    private double y;\n\n    public Punto(double x, double y) {\n        this.x = x;\n        this.y = y;\n    }\n\n    public Punto(Punto p) {\n        this.x = p.x;\n        this.y = p.y;\n    }\n\n    public void setX(double x) {\n        this.x = x;\n    }\n\n    public void setY(double y) {\n        this.y = y;\n    }\n\n    public double getX() {\n        return x;\n    }\n\n    public double getY() {\n        return y;\n    }\n\n    public double distanza(Punto p) {\n        double dx = this.x - p.x;\n        double dy = this.y - p.y;\n        return Math.sqrt(dx * dx + dy * dy);\n    }\n\n    public boolean equals(Punto p) {\n        return this.x == p.x && this.y == p.y;\n    }\n\n    @Override\n    public String toString() {\n        return \"(\" + x + \", \" + y + \")\";\n    }\n    public static void main(String[] args) {\n        Punto p1 = new Punto(3.0, 4.0);\n        Punto p2 = new Punto(0.0, 0.0);\n        Punto p3 = new Punto(p1);\n    \n        System.out.println(\"p1: \" + p1);\n        System.out.println(\"p2: \" + p2);\n        System.out.println(\"p3: \" + p3);\n    \n        System.out.println(\"space tra p1 e p2: \" + p1.distanza(p2));\n        \n        System.out.println(\"p1 == p2: \" + p1.equals(p2));\n        System.out.println(\"p1 == p3: \" + p1.equals(p3));\n    \n        p2.setX(3.0);\n        p2.setY(4.0);\n        System.out.println(\"p2: \" + p2);\n        System.out.println(\"p1 == p2: \" + p1.equals(p2));\n    }\n}"];
-        const projectName = "Punto";
+        const sourceCode = ["public class Punto {\n    private static final double EPSILON = 1e-9;\n    private double x;\n    private double y;\n\n    public Punto(double x, double y) {\n        this.x = x;\n        this.y = y;\n    }\n\n    public Punto(Punto p) {\n        this(p.x, p.y);\n    }\n\n    public void setX(double x) {\n        this.x = x;\n    }\n\n    public void setY(double y) {\n        this.y = y;\n    }\n\n    public double getX() {\n        return x;\n    }\n\n    public double getY() {\n        return y;\n    }\n\n    public double distanza(Punto p) {\n        double dx = this.x - p.x;\n        double dy = this.y - p.y;\n        return Math.sqrt(dx * dx + dy * dy);\n    }\n\n    public boolean equals(Punto p) {\n        if (p == null) {\n            return false;\n        }\n        return Math.abs(this.x - p.x) < EPSILON && Math.abs(this.y - p.y) < EPSILON;\n    }\n\n    @Override\n    public String toString() {\n        return \"(\" + x + \", \" + y + \")\";\n    }\n}\n", "public class Triangolo {\n    private Punto p1;\n    private Punto p2;\n    private Punto p3;\n\n    public Triangolo(Punto p1, Punto p2, Punto p3) {\n        points(p1, p2, p3);\n    }\n\n    public Triangolo(Triangolo t) {\n        this(t.p1, t.p2, t.p3);\n    }\n\n    public void setP1(Punto p1) {\n        points(p1, this.p2, this.p3);\n    }\n\n    public void setP2(Punto p2) {\n        points(this.p1, p2, this.p3);\n    }\n\n    public void setP3(Punto p3) {\n        points(this.p1, this.p2, p3);\n    }\n\n    public Punto getP1() {\n        return new Punto(this.p1);\n    }\n\n    public Punto getP2() {\n        return new Punto(this.p2);\n    }\n\n    public Punto getP3() {\n        return new Punto(this.p3);\n    }\n\n    public double perim() {\n        double lato1 = len(this.p1, this.p2);\n        double lato2 = len(this.p2, this.p3);\n        double lato3 = len(this.p3, this.p1);\n        return lato1 + lato2 + lato3;\n    }\n\n    public double area() {\n        double lato1 = len(this.p1, this.p2);\n        double lato2 = len(this.p2, this.p3);\n        double lato3 = len(this.p3, this.p1);\n        double semiP = (lato1 + lato2 + lato3) / 2.0;\n        double areaQuad = semiP\n                * (semiP - lato1)\n                * (semiP - lato2)\n                * (semiP - lato3);\n\n        return Math.sqrt(Math.max(areaQuad, 0.0));\n    }\n\n    public boolean equals(Triangolo t) {\n        if (t == null) {\n            return false;\n        }\n        return this.p1.equals(t.p1)\n                && this.p2.equals(t.p2)\n                && this.p3.equals(t.p3);\n    }\n\n    public boolean equivale(Triangolo t) {\n        if (t == null) {\n            return false;\n        }\n\n        double[] latiMiei = {len(this.p1, this.p2), len(this.p2, this.p3), len(this.p3, this.p1)};\n        double[] latiSuoi = {len(t.p1, t.p2), len(t.p2, t.p3), len(t.p3, t.p1)};\n\n        sort(latiMiei);\n        sort(latiSuoi);\n\n        for (int i = 0; i < latiMiei.length; i++) {\n            if (latiMiei[i] != latiSuoi[i]) {\n                return false;\n            }\n        }\n        return true;\n    }\n\n    @Override\n    public String toString() {\n        return \"Tri{\" +\n                \"p1=\" + this.p1 +\n                \", p2=\" + this.p2 +\n                \", p3=\" + this.p3 +\n                '}';\n    }\n\n    private void points(Punto nuovoP1, Punto nuovoP2, Punto nuovoP3) {\n\n        this.p1 = new Punto(nuovoP1);\n        this.p2 = new Punto(nuovoP2);\n        this.p3 = new Punto(nuovoP3);\n    }\n\n    private boolean stannoInRiga(Punto pt1, Punto pt2, Punto pt3) {\n        double areaDoppia = pt1.getX() * (pt2.getY() - pt3.getY())\n                + pt2.getX() * (pt3.getY() - pt1.getY())\n                + pt3.getX() * (pt1.getY() - pt2.getY());\n        return areaDoppia == 0;\n    }\n\n    private double len(Punto pt1, Punto pt2) {\n        return pt1.distanza(pt2);\n    }\n\n    private void sort(double[] lati) {\n        for (int i = 0; i < lati.length - 1; i++) {\n            for (int j = i + 1; j < lati.length; j++) {\n                if (lati[i] > lati[j]) {\n                    double tmp = lati[i];\n                    lati[i] = lati[j];\n                    lati[j] = tmp;\n                }\n            }\n        }\n    }\n\n    public static void main(String[] args) {\n        Punto p1 = new Punto(0, 0);\n        Punto p2 = new Punto(6, 0);\n        Punto p3 = new Punto(2, 5);\n\n        Triangolo tri = new Triangolo(p1, p2, p3);\n        System.out.println(\"Tri inizl: \" + tri);\n        System.out.println(\"Perimetr: \" + tri.perim());\n        System.out.println(\"Are: \" + tri.area());\n\n        Triangolo copia = new Triangolo(tri);\n        System.out.println(\"\\nCopi: \" + copia);\n        System.out.println(\"equals(copi) -> \" + tri.equals(copia));\n\n        Triangolo stessiPunti = new Triangolo(\n                new Punto(2, 5),\n                new Punto(0, 0),\n                new Punto(6, 0)\n        );\n        System.out.println(\"\\nStessi pnti, ordin divers: \" + stessiPunti);\n        System.out.println(\"equals(stessiPnti) -> \" + tri.equals(stessiPunti));\n        System.out.println(\"equivale(stessiPnti) -> \" + tri.equivale(stessiPunti));\n\n        Triangolo triSimile = new Triangolo(\n                new Punto(0, 0),\n                new Punto(3, 0),\n                new Punto(1, 2.5)\n        );\n        System.out.println(\"\\nLati in rapprt: \" + triSimile);\n        System.out.println(\"equivale(triSimile) -> \" + tri.equivale(triSimile));\n    }\n}\n"];
+        const projectName = "Triangolo";
         const buildStatus = "success";
-        const precompiledOutput = "p1: (3.0, 4.0)\np2: (0.0, 0.0)\np3: (3.0, 4.0)\nspace tra p1 e p2: 5.0\np1 == p2: false\np1 == p3: true\np2: (3.0, 4.0)\np1 == p2: true\n";
+        const precompiledOutput = "Triangolo originario: Triangolo{A=(0.0, 0.0), B=(6.0, 0.0), C=(2.0, 5.0)}\nPerimetro: 17.788289044567353\nArea: 15.000000000000002\n\nCopia del triangolo: Triangolo{A=(0.0, 0.0), B=(6.0, 0.0), C=(2.0, 5.0)}\nequals(copia) -> true\n\nTriangolo con stessi vertici ma ordine differente: Triangolo{A=(2.0, 5.0), B=(0.0, 0.0), C=(6.0, 0.0)}\nequals(stessoEquilatero) -> false\nequivale(stessoEquilatero) -> true\n\nTriangolo con lati in rapporto 1: Triangolo{A=(0.0, 0.0), B=(3.0, 0.0), C=(1.0, 2.5)}\nequivale(triangoloSimile) -> false\n";
         
         // Tab switching functionality
         function switchTab(tabId) {
