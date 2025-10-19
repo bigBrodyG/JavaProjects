@@ -1,90 +1,63 @@
-# 🤖 Java Projects Site Automation
+# 🤖 Java Projects Automation
 
-This directory contains scripts to automatically build and maintain the Java projects showcase website.
+This repository automatically builds and showcases Java projects on GitHub Pages.
 
-## 📁 Scripts Overview
+## � How It Works
 
-### 1. `generate-site.py` - Main Site Generator
+When you push to the `main` branch, GitHub Actions automatically:
+
+1. **Detects** all Java projects (any folder with a `src/` directory containing `.java` files)
+2. **Compiles** each project using `javac`
+3. **Runs** the compiled programs and captures their output
+4. **Generates** a beautiful HTML showcase website
+5. **Deploys** to GitHub Pages automatically
+
+## ✨ Adding a New Project
+
+Simply create a new folder with your project:
+
+```
+YourProject/
+├── src/
+│   ├── MainClass.java
+│   └── OtherClasses.java
+└── README.md (optional)
+```
+
+Then commit and push:
+```bash
+git add .
+git commit -m "Add new project: YourProject"
+git push
+```
+
+**That's it!** GitHub Actions handles everything automatically.
+
+## 🛠️ Local Scripts
+
+### 1. `generate-site.py` - Site Generator
 Generates the complete static website with all project pages.
 
 **Usage:**
 ```bash
-cd /path/to/JavaProjects
 python3 .github/scripts/generate-site.py
 ```
 
-**What it does:**
-- Reads project configurations from the `projects` list
-- Generates individual HTML pages for each project
-- Creates an index page with project cards
-- Applies consistent styling and interactive features
-
-### 2. `auto-add-project.py` - Automatic Project Detection 🆕
-**The smart way!** Automatically detects new Java projects and adds them to the website.
+### 2. `auto-add-project.py` - Local Project Detection (Optional)
+For testing locally before pushing. Automatically detects new projects and adds them.
 
 **Usage:**
 ```bash
-# From project root
 python3 .github/scripts/auto-add-project.py
-
-# Or use the convenient wrapper
-.github/scripts/auto-add.fish
 ```
 
 **What it does:**
-1. 🔍 Scans the workspace for Java projects (directories with `src/` folders)
-2. 📋 Compares with existing projects already in the website
-3. ⚙️ Compiles and runs each new project
-4. 📤 Captures the output
-5. 💾 Saves output and compile logs to `docs/`
-6. 📝 Adds project configuration to `generate-site.py`
-7. 🔄 Regenerates the entire website
-8. ✨ Done! Your new project is live on the site
+1. 🔍 Scans for Java projects
+2. ⚙️ Compiles and runs each new project
+3. 📝 Adds project configuration to `generate-site.py`
+4. 🔄 Regenerates the website
 
-**Interactive prompts:**
-- Asks whether each project is `teoria` or `laboratorio`
-- Shows compilation output and any errors
-- Provides clear feedback at each step
-
-### 3. `auto-add.fish` - Convenient Wrapper
-A fish shell wrapper that makes running the auto-add script even easier.
-
-**Usage:**
-```bash
-# From anywhere in the project
-./.github/scripts/auto-add.fish
-```
-
-## 🎯 Quick Start Guide
-
-### Adding a New Project Automatically
-
-1. **Create your Java project** with this structure:
-   ```
-   MyNewProject/
-   ├── src/
-   │   ├── MyClass.java
-   │   └── TestMyClass.java  (with main method)
-   ├── bin/
-   └── lib/
-   ```
-
-2. **Run the auto-add script:**
-   ```bash
-   cd JavaProjects
-   python3 .github/scripts/auto-add-project.py
-   ```
-
-3. **Follow the prompts:**
-   - The script will detect your new project
-   - It will compile and run it
-   - You'll be asked if it's `teoria` or `laboratorio`
-   - The website will be automatically regenerated
-
-4. **That's it!** 🎉
-   - Your project page is at `docs/mynewproject.html`
-   - It's added to the index page
-   - Output is saved to `docs/mynewproject-output.txt`
+**Note:** This is mainly for local testing. The GitHub workflow handles everything automatically when you push.
 
 ## 📦 Project Structure Requirements
 

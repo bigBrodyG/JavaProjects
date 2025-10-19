@@ -1,0 +1,123 @@
+name: Auto-Update Java Showcase Website
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+    
+    - name: Create necessary directories
+      run: |
+        mkdir -p docs
+        for project in */src; do
+          project_name=$(dirname "$project")
+          mkdir -p "$project_name/bin"
+        done
+    
+    - name: Auto-detect and compile all Java projects
+      run: |
+        echo "🔍 Auto-detecting Java projects..."
+        
+        # Find all Java projects (directories with src/ folder containing .java files)
+        for project_dir in */src; do
+          project_name=$(dirname "$project_dir")
+          
+          # Skip if not a valid project directory
+          if [ ! -d "$project_name/src" ]; then
+            continue
+          fi
+          
+          # Check if there are any Java files
+          java_files=$(find "$project_name/src" -name "*.java" 2>/dev/null | wc -l)
+          if [ "$java_files" -eq 0 ]; then
+            continue
+          fi
+          
+          echo "📦 Compiling $project_name..."
+          
+          # Compile all Java files in the project
+          javac -d "$project_name/bin" "$project_name/src"/*.java 2>&1 | tee "docs/${project_name,,}-compile.log" || true
+          
+          # Find the main class (class with main method or first class file)
+          main_class=""
+          for class_file in "$project_name/bin"/*.class; do
+            if [ -f "$class_file" ]; then
+              class_name=$(basename "$class_file" .class)
+              # Try to run it - if it has a main method it will work
+              cd "$project_name/bin"
+              if java "$class_name" > /dev/null 2>&1 || java "$class_name" 2>&1 | grep -q "main"; then
+                main_class="$class_name"
+                break
+              fi
+              cd ../..
+            fi
+          done
+          
+          # If we found a main class, run it
+          if [ -n "$main_class" ]; then
+            echo "▶️  Running $project_name ($main_class)..."
+            cd "$project_name/bin"
+            java "$main_class" > "../../docs/${project_name,,}-output.txt" 2>&1 || echo "Error running $main_class" > "../../docs/${project_name,,}-output.txt"
+            cd ../..
+          else
+            # Try the most common pattern: project name as main class
+            if [ -f "$project_name/bin/$project_name.class" ]; then
+              echo "▶️  Running $project_name..."
+              cd "$project_name/bin"
+              java "$project_name" > "../../docs/${project_name,,}-output.txt" 2>&1 || echo "Error running $project_name" > "../../docs/${project_name,,}-output.txt"
+              cd ../..
+            else
+              echo "⚠️  No main class found for $project_name"
+              echo "No main method found" > "docs/${project_name,,}-output.txt"
+            fi
+          fi
+        done
+    
+    - name: Generate website with all projects
+      run: |
+        echo "🎨 Generating website..."
+        python3 .github/scripts/generate-site.py
+    
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: docs
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build-and-deploy
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
