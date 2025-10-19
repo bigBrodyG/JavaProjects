@@ -663,7 +663,7 @@ def main():
         {
             'name': 'OggettoCD',
             'id': 'oggettocd',
-            'sources': ['OggettoCD/src/Cd.java'],
+            'sources': ['OggettoCD/src/Cd.java', 'OggettoCD/src/PortaCD.java'],
             'output': 'docs/oggettocd-output.txt',
             'compile': 'docs/oggettocd-compile.log',
             'description': 'Gestione di un catalogo CD',
@@ -1239,9 +1239,8 @@ def main():
     <div class="container">
         <header class="hero">
             <span class="eyebrow"><i class="fas fa-code"></i> Java Lessons Showcase</span>
-            <h1>Progetti Java interattivi per imparare con stile</h1>
+            <h1>My own Java projects</h1>
             <p class="hero-subtitle">
-                Esplora gli esercizi svolti durante il percorso scolastico: ogni progetto include il codice sorgente, l&apos;output e una pagina interattiva tutta da scoprire.
             </p>
             <div class="hero-actions">
                 <a class="button primary" href="https://github.com/bigBrodyG/JavaProjects" target="_blank" rel="noopener">
