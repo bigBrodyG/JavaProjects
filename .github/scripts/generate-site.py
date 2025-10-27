@@ -722,6 +722,24 @@ def main():
             'compile': 'docs/orario-compile.log',
             'description': 'Gestione e manipolazione di orari',
             'type': 'teoria'
+        },
+        {
+            'name': 'Software',
+            'id': 'software',
+            'sources': ['Software/src/Software.java'],
+            'output': 'docs/software-output.txt',
+            'compile': 'docs/software-compile.log',
+            'description': 'Progetto Software',
+            'type': 'teoria'
+        },
+        {
+            'name': 'SpeseManager',
+            'id': 'spesemanager',
+            'sources': ['SpeseManager/src/Main.java', 'SpeseManager/src/SpesaManager.java', 'SpeseManager/src/Spese.java'],
+            'output': 'docs/spesemanager-output.txt',
+            'compile': 'docs/spesemanager-compile.log',
+            'description': 'Progetto SpeseManager',
+            'type': 'laboratorio'
         }
     ]
     
