@@ -82,46 +82,52 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
+            <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap');
         
         :root {{
-            --page-bg: #f4f6fb;
-            --card-bg: #ffffff;
-            --border: #e1e4ec;
-            --text: #1f2937;
-            --muted: #6b7280;
-            --brand: #1f6feb;
-            --brand-muted: #aac7ff;
-            --success: #008a4e;
-            --error: #b42318;
+            --bg: #03060f;
+            --panel: #0a101f;
+            --panel-alt: #121a30;
+            --border: rgba(255, 255, 255, 0.07);
+            --text: #f5f6ff;
+            --muted: #9aa4c6;
+            --accent: #6bb8ff;
+            --accent-strong: #4a92ff;
+            --success: #38d98a;
+            --error: #f48b9c;
         }}
         
-        * {{
+        *, *::before, *::after {{
             box-sizing: border-box;
+        }}
+        
+        html, body {{
+            height: 100%;
         }}
         
         body {{
             margin: 0;
-            min-height: 100vh;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--page-bg);
+            background: var(--bg);
             color: var(--text);
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }}
         
         header {{
-            background: #ffffff;
+            flex-shrink: 0;
+            background: rgba(10, 16, 31, 0.96);
             border-bottom: 1px solid var(--border);
-            padding: 20px 32px;
+            padding: 16px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }}
         
         header h1 {{
-            font-size: 1.35rem;
+            font-size: 1rem;
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -129,43 +135,47 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
         }}
         
         header h1 i {{
-            color: var(--brand);
+            color: var(--accent);
         }}
         
         .back-btn {{
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 14px;
-            border-radius: 6px;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 5px;
             border: 1px solid var(--border);
             color: var(--text);
             text-decoration: none;
-            font-size: 0.92rem;
-            transition: background 0.2s ease;
+            font-size: 0.82rem;
         }}
         
         .back-btn:hover {{
-            background: #f6f8fb;
+            border-color: var(--accent);
+            color: var(--accent);
         }}
         
         .container {{
             flex: 1;
             display: flex;
             border-top: 1px solid var(--border);
+            min-height: 0;
+            overflow: hidden;
         }}
         
         .left-panel {{
             flex: 1;
+            min-width: 0;
+            min-height: 0;
             display: flex;
             flex-direction: column;
-            background: var(--card-bg);
+            background: var(--panel);
             border-right: 1px solid var(--border);
         }}
         
         .tabs {{
             display: flex;
-            padding: 0 16px;
+            padding: 0 12px;
             border-bottom: 1px solid var(--border);
             overflow-x: auto;
         }}
@@ -174,8 +184,8 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
             border: none;
             background: none;
             font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            padding: 12px 16px;
+            font-size: 0.8rem;
+            padding: 10px 12px;
             color: var(--muted);
             cursor: pointer;
             border-bottom: 2px solid transparent;
@@ -186,14 +196,16 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
         }}
         
         .tab-button.active {{
-            color: var(--brand);
-            border-color: var(--brand);
+            color: var(--accent);
+            border-color: var(--accent);
         }}
         
         .code-area {{
             position: relative;
             flex: 1;
-            overflow: auto;
+            min-height: 0;
+            overflow: hidden;
+            background: var(--panel-alt);
         }}
         
         .tab-content {{
@@ -203,48 +215,54 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
         
         .tab-content.active {{
             display: block;
+            height: 100%;
         }}
         
         pre {{
+            height: 100%;
             margin: 0;
         }}
         
         pre code {{
             display: block;
-            padding: 20px !important;
-            min-height: 100%;
-            background: #0b1220 !important;
-            color: #f3f4f6 !important;
-            font-size: 14px;
+            height: 100%;
+            padding: 16px !important;
+            background: #060a17 !important;
+            color: #eaf0ff !important;
+            font-size: 13px;
+            line-height: 1.5;
+            overflow: auto;
         }}
         
         .copy-btn {{
             position: absolute;
-            top: 16px;
-            right: 16px;
+            top: 12px;
+            right: 12px;
             border: 1px solid var(--border);
-            background: #fff;
+            background: rgba(3, 6, 15, 0.85);
             color: var(--text);
-            border-radius: 5px;
-            padding: 6px 12px;
+            border-radius: 4px;
+            padding: 4px 9px;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
         }}
         
         .copy-btn:hover {{
-            border-color: var(--brand);
+            border-color: var(--accent);
+            color: var(--accent);
         }}
         
         .right-panel {{
-            width: 40%;
-            min-width: 360px;
-            background: var(--card-bg);
+            width: 32%;
+            min-width: 280px;
+            min-height: 0;
+            background: var(--panel);
             display: flex;
             flex-direction: column;
         }}
         
         .run-header {{
-            padding: 18px 24px;
+            padding: 14px 18px;
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
@@ -252,90 +270,88 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
         }}
         
         .run-header h2 {{
-            font-size: 1rem;
+            font-size: 0.9rem;
         }}
         
         .run-btn {{
-            border: 1px solid var(--brand);
-            background: var(--brand);
+            border: none;
+            background: linear-gradient(120deg, var(--accent-strong), var(--accent));
             color: #fff;
-            border-radius: 6px;
-            padding: 8px 16px;
+            border-radius: 5px;
+            padding: 7px 14px;
             cursor: pointer;
             font-weight: 500;
-            font-size: 0.92rem;
-            transition: opacity 0.2s ease;
-        }}
-        
-        .run-btn:hover {{
-            opacity: 0.9;
+            font-size: 0.82rem;
         }}
         
         .run-btn:disabled {{
-            opacity: 0.5;
+            opacity: 0.45;
             cursor: not-allowed;
         }}
         
         .output-area {{
-            padding: 24px;
+            padding: 16px;
             flex: 1;
+            min-height: 0;
             overflow: auto;
+            background: var(--panel-alt);
         }}
         
         .output-box {{
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 18px;
-            min-height: 180px;
+            padding: 12px;
+            min-height: 130px;
             font-family: 'Fira Code', monospace;
-            font-size: 13px;
+            font-size: 12px;
             white-space: pre-wrap;
-            background: #fcfdff;
+            background: rgba(4, 8, 20, 0.92);
+            color: var(--muted);
         }}
         
         .output-box.success {{
-            border-color: var(--success);
+            border-color: rgba(56, 217, 138, 0.45);
             color: var(--success);
         }}
         
         .output-box.error {{
-            border-color: var(--error);
+            border-color: rgba(244, 139, 156, 0.45);
             color: var(--error);
         }}
         
         .status-indicator {{
-            font-size: 0.88rem;
-            margin-bottom: 12px;
-            padding: 8px 10px;
-            border-radius: 6px;
+            font-size: 0.75rem;
+            margin-bottom: 10px;
+            padding: 6px 9px;
+            border-radius: 4px;
             border: 1px solid var(--border);
             display: inline-flex;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
             color: var(--muted);
         }}
         
         .status-indicator.success {{
             color: var(--success);
-            border-color: rgba(0, 138, 78, 0.4);
+            border-color: rgba(56, 217, 138, 0.35);
         }}
         
         .status-indicator.error {{
             color: var(--error);
-            border-color: rgba(180, 35, 24, 0.4);
+            border-color: rgba(244, 139, 156, 0.35);
         }}
         
         .status-indicator.running {{
-            color: var(--brand);
-            border-color: rgba(31, 111, 235, 0.4);
+            color: var(--accent);
+            border-color: rgba(107, 184, 255, 0.35);
         }}
         
         .spinner {{
-            width: 1rem;
-            height: 1rem;
-            border-radius: 50%;
-            border: 2px solid rgba(31, 111, 235, 0.2);
-            border-top-color: var(--brand);
+            width: 0.8rem;
+            height: 0.8rem;
+            border-radius: 999px;
+            border: 2px solid rgba(107, 184, 255, 0.2);
+            border-top-color: var(--accent);
             animation: spin 0.6s linear infinite;
         }}
         
@@ -345,23 +361,41 @@ def generate_project_page(project_name, source_files, output_file, compile_log, 
         }}
         
         .info-box {{
-            border-left: 3px solid var(--brand);
-            padding: 10px 14px;
-            background: #f5f8ff;
-            font-size: 0.88rem;
+            border-left: 3px solid var(--accent);
+            padding: 7px 10px;
+            background: rgba(107, 184, 255, 0.08);
+            font-size: 0.78rem;
             color: var(--muted);
-            margin-bottom: 14px;
+            margin-bottom: 10px;
         }}
         
-        @media (max-width: 1024px) {{
+        @media (max-width: 960px) {{
+            body {{
+                overflow: auto;
+            }}
             .container {{
                 flex-direction: column;
+                height: auto;
             }}
-            
             .right-panel {{
                 width: 100%;
-                min-width: auto;
+                border-left: none;
                 border-top: 1px solid var(--border);
+            }}
+        }}
+        
+        @media (max-width: 640px) {{
+            header {{
+                padding: 14px 16px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }}
+            .tabs {{
+                padding: 0 8px;
+            }}
+            .tab-button {{
+                font-size: 0.75rem;
             }}
         }}
     </style>
@@ -759,94 +793,93 @@ def main():
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
+            <style>
         :root {{
-            --page-bg: #f4f6fb;
-            --surface: #ffffff;
-            --border: #dce2ef;
-            --text: #111827;
-            --muted: #6b7280;
-            --brand: #1f6feb;
-            --brand-soft: #e1ecff;
-            --theory: #0f9d58;
-            --lab: #b45309;
+            --bg: #03060f;
+            --panel: #0b111f;
+            --panel-soft: #121a2f;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f5f6ff;
+            --muted: #98a2c1;
+            --accent: #69b4ff;
+            --accent-soft: rgba(105, 180, 255, 0.15);
+            --theory: #39d98a;
+            --lab: #f5b453;
         }}
         
-        * {{
+        *, *::before, *::after {{
             box-sizing: border-box;
         }}
         
         body {{
             margin: 0;
-            min-height: 100vh;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--page-bg);
+            min-height: 100vh;
+            background: var(--bg);
             color: var(--text);
-            padding: 48px 20px 72px;
+            padding: 36px 16px 54px;
         }}
         
         .container {{
-            max-width: 1100px;
+            max-width: 1050px;
             margin: 0 auto;
         }}
         
         .hero {{
-            background: var(--surface);
+            background: var(--panel);
             border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 32px;
-            margin-bottom: 32px;
-            box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08);
+            border-radius: 14px;
+            padding: 26px;
+            margin-bottom: 22px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 10px;
         }}
         
         .hero .eyebrow {{
-            font-size: 0.78rem;
-            letter-spacing: 0.3em;
+            font-size: 0.7rem;
+            letter-spacing: 0.28em;
             text-transform: uppercase;
             color: var(--muted);
             display: inline-flex;
-            gap: 8px;
             align-items: center;
+            gap: 8px;
         }}
         
         .hero h1 {{
             margin: 0;
-            font-size: 2.6rem;
-            letter-spacing: -0.6px;
+            font-size: 2rem;
+            letter-spacing: -0.35px;
         }}
         
         .hero-subtitle {{
             color: var(--muted);
-            font-size: 1rem;
-            line-height: 1.6;
-            max-width: 640px;
+            font-size: 0.95rem;
+            line-height: 1.45;
         }}
         
         .hero-actions {{
             display: flex;
-            gap: 12px;
+            gap: 8px;
             flex-wrap: wrap;
+            margin-top: 6px;
         }}
         
         .button {{
             border-radius: 8px;
-            padding: 10px 18px;
+            padding: 8px 14px;
             text-decoration: none;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 8px;
             border: 1px solid transparent;
-            transition: background 0.2s ease, border 0.2s ease, color 0.2s ease;
+            font-size: 0.9rem;
         }}
         
         .button.primary {{
-            background: var(--brand);
-            color: #fff;
-            border-color: var(--brand);
+            background: linear-gradient(120deg, #4e8eff, #7ac6ff);
+            color: #050713;
         }}
         
         .button.primary:hover {{
@@ -854,119 +887,109 @@ def main():
         }}
         
         .button.ghost {{
-            background: var(--brand-soft);
-            color: var(--brand);
-            border-color: var(--brand-soft);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.08);
+            color: var(--text);
         }}
         
         .button.ghost:hover {{
-            border-color: var(--brand);
+            border-color: var(--accent);
+            color: var(--accent);
         }}
         
         .stats-row {{
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-            margin-top: 8px;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
         }}
         
         .stats-card {{
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 16px;
-            background: #f9fbff;
+            padding: 12px;
+            background: var(--panel-soft);
         }}
         
         .stats-label {{
-            font-size: 0.78rem;
-            text-transform: uppercase;
+            font-size: 0.72rem;
             letter-spacing: 0.12em;
             color: var(--muted);
         }}
         
         .stats-value {{
-            font-size: 1.7rem;
+            font-size: 1.4rem;
             font-weight: 600;
-            margin-top: 6px;
+            margin-top: 4px;
         }}
         
         .controls {{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 16px;
+            gap: 10px;
             flex-wrap: wrap;
-            margin-bottom: 28px;
+            margin-bottom: 20px;
         }}
         
         .filters {{
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }}
         
         .filter-button {{
             border-radius: 999px;
             border: 1px solid var(--border);
-            background: #fff;
+            background: rgba(255, 255, 255, 0.02);
             color: var(--muted);
-            padding: 8px 14px;
-            font-weight: 500;
+            padding: 6px 12px;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             cursor: pointer;
+            font-size: 0.82rem;
         }}
         
         .filter-button span {{
-            background: var(--brand-soft);
+            background: var(--accent-soft);
             border-radius: 999px;
-            padding: 2px 8px;
-            font-size: 0.8rem;
-            color: var(--brand);
+            padding: 2px 6px;
+            font-size: 0.72rem;
+            color: var(--accent);
         }}
         
         .filter-button.active {{
-            border-color: var(--brand);
-            color: var(--brand);
+            border-color: var(--accent);
+            color: var(--accent);
         }}
         
         .projects-grid {{
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
         }}
         
         .project-card {{
             text-decoration: none;
             color: inherit;
             border: 1px solid var(--border);
-            border-radius: 16px;
-            background: var(--surface);
-            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            display: block;
+            border-radius: 12px;
+            background: var(--panel);
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: border 0.2s ease, transform 0.2s ease;
         }}
         
         .project-card:hover {{
-            transform: translateY(-3px);
-            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-2px);
         }}
         
         .project-card.is-hidden {{
             opacity: 0;
             pointer-events: none;
-        }}
-        
-        .card-glow {{
-            display: none;
-        }}
-        
-        .card-content {{
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
         }}
         
         .card-top {{
@@ -976,62 +999,61 @@ def main():
         }}
         
         .project-icon {{
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             display: grid;
             place-items: center;
-            background: var(--brand-soft);
-            color: var(--brand);
-            font-size: 1.2rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-size: 1rem;
         }}
         
         .project-icon.laboratorio {{
-            background: #fef3c7;
+            background: rgba(245, 180, 83, 0.14);
             color: var(--lab);
         }}
         
         .status-pill {{
-            padding: 6px 12px;
+            padding: 4px 10px;
             border-radius: 999px;
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            font-size: 0.7rem;
+            letter-spacing: 0.04em;
             border: 1px solid var(--border);
         }}
         
         .status-pill.success {{
             color: var(--lab);
-            border-color: rgba(180, 83, 9, 0.35);
+            border-color: rgba(245, 180, 83, 0.35);
         }}
         
         .status-pill.theory {{
             color: var(--theory);
-            border-color: rgba(15, 157, 88, 0.35);
+            border-color: rgba(57, 217, 138, 0.35);
         }}
         
         .card-content h2 {{
             margin: 0;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
         }}
         
         .card-description {{
             color: var(--muted);
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            line-height: 1.4;
         }}
         
         .card-footer {{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.9rem;
+            font-size: 0.82rem;
             color: var(--muted);
         }}
         
         .card-arrow {{
-            width: 36px;
-            height: 36px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             border: 1px solid var(--border);
             display: grid;
@@ -1041,48 +1063,44 @@ def main():
         .view-link {{
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             font-weight: 600;
-            color: var(--brand);
+            color: var(--accent);
         }}
         
         .footer {{
-            margin-top: 32px;
+            margin-top: 22px;
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            background: var(--surface);
+            border-radius: 12px;
+            padding: 18px;
+            background: var(--panel);
             text-align: center;
             color: var(--muted);
         }}
         
         .footer .social-links {{
-            margin-top: 12px;
+            margin-top: 8px;
             display: flex;
             justify-content: center;
-            gap: 14px;
+            gap: 10px;
         }}
         
         .footer .social-links a {{
-            color: var(--brand);
+            color: var(--accent);
             text-decoration: none;
         }}
         
         @media (max-width: 640px) {{
             body {{
-                padding: 32px 16px 48px;
+                padding: 26px 12px 40px;
             }}
             
             .hero {{
-                padding: 24px;
+                padding: 20px;
             }}
             
             .hero h1 {{
-                font-size: 2rem;
-            }}
-            
-            .projects-grid {{
-                grid-template-columns: 1fr;
+                font-size: 1.7rem;
             }}
         }}
     </style>
