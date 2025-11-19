@@ -1,0 +1,99 @@
+name: Update Generated Docs
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  update-docs:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Prepare directories
+        run: |
+          mkdir -p docs
+          for project in */src; do
+            project_name=$(dirname "$project")
+            mkdir -p "$project_name/bin"
+          done
+
+      - name: Compile and capture outputs
+        run: |
+          echo "Auto-detecting Java projects..."
+          
+          for project_dir in */src; do
+            project_name=$(dirname "$project_dir")
+            
+            if [ ! -d "$project_name/src" ]; then
+              continue
+            fi
+            
+            java_files=$(find "$project_name/src" -name "*.java" 2>/dev/null | wc -l)
+            if [ "$java_files" -eq 0 ]; then
+              continue
+            fi
+            
+            echo "Compiling $project_name..."
+            mkdir -p "$project_name/bin"
+            javac -d "$project_name/bin" "$project_name/src"/*.java 2>&1 | tee "docs/${project_name,,}-compile.log" || true
+            
+            main_class=""
+            if [ -d "$project_name/bin" ] && compgen -G "$project_name/bin/"'*.class' > /dev/null; then
+              for class_file in "$project_name/bin"/*.class; do
+                if [ -f "$class_file" ]; then
+                  class_name=$(basename "$class_file" .class)
+                  if (cd "$project_name/bin" && java "$class_name" > /dev/null 2>&1); then
+                    main_class="$class_name"
+                    break
+                  fi
+                fi
+              done
+            fi
+            
+            if [ -n "$main_class" ]; then
+              echo "Running $project_name ($main_class)..."
+              (cd "$project_name/bin" && java "$main_class" > "../../docs/${project_name,,}-output.txt" 2>&1) || echo "Error running $main_class" > "docs/${project_name,,}-output.txt"
+            else
+              if [ -f "$project_name/bin/$project_name.class" ]; then
+                echo "Running $project_name..."
+                (cd "$project_name/bin" && java "$project_name" > "../../docs/${project_name,,}-output.txt" 2>&1) || echo "Error running $project_name" > "docs/${project_name,,}-output.txt"
+              else
+                echo "No main class found for $project_name"
+                echo "No main method found" > "docs/${project_name,,}-output.txt"
+              fi
+            fi
+          done
+
+      - name: Generate site
+        run: python3 .github/scripts/generate-site.py
+
+      - name: Commit generated docs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs
+          if git diff --cached --quiet; then
+            echo "No documentation changes to commit."
+            exit 0
+          fi
+          git commit -m "chore: update generated docs (bot)"
+          git push
+          echo "Documentation committed via GitHub Actions bot."
