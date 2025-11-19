@@ -740,6 +740,60 @@ def main():
             'compile': 'docs/spesemanager-compile.log',
             'description': 'Progetto SpeseManager',
             'type': 'laboratorio'
+        },
+        {
+            'name': '01_Verifica_teoria',
+            'id': '01_verifica_teoria',
+            'sources': ['01_Verifica_teoria/src/Main.java', '01_Verifica_teoria/src/SchedaSim.java', '01_Verifica_teoria/src/Telefonata.java'],
+            'output': 'docs/01_verifica_teoria-output.txt',
+            'compile': 'docs/01_verifica_teoria-compile.log',
+            'description': 'Progetto 01_Verifica_teoria',
+            'type': 'teoria'
+        },
+        {
+            'name': '02_Verifica_lab',
+            'id': '02_verifica_lab',
+            'sources': ['02_Verifica_lab/src/MacchinaDistributrice.java', '02_Verifica_lab/src/Main.java', '02_Verifica_lab/src/Prodotto.java'],
+            'output': 'docs/02_verifica_lab-output.txt',
+            'compile': 'docs/02_verifica_lab-compile.log',
+            'description': 'Progetto 02_Verifica_lab',
+            'type': 'laboratorio'
+        },
+        {
+            'name': 'Abbonamento',
+            'id': 'abbonamento',
+            'sources': ['Abbonamento/src/Cd.java', 'Abbonamento/src/Main.java', 'Abbonamento/src/PortaCD.java'],
+            'output': 'docs/abbonamento-output.txt',
+            'compile': 'docs/abbonamento-compile.log',
+            'description': 'Progetto Abbonamento',
+            'type': 'laboratorio'
+        },
+        {
+            'name': 'Ereditarietà',
+            'id': 'ereditarietà',
+            'sources': ['Ereditarietà/src/Docente.java', 'Ereditarietà/src/Main.java', 'Ereditarietà/src/Persona.java', 'Ereditarietà/src/Studente.java'],
+            'output': 'docs/ereditarietà-output.txt',
+            'compile': 'docs/ereditarietà-compile.log',
+            'description': 'Progetto Ereditarietà',
+            'type': 'teoria'
+        },
+        {
+            'name': 'Immobili',
+            'id': 'immobili',
+            'sources': ['Immobili/src/Abitazione.java', 'Immobili/src/Appartamento.java', 'Immobili/src/Test.java', 'Immobili/src/Villa.java'],
+            'output': 'docs/immobili-output.txt',
+            'compile': 'docs/immobili-compile.log',
+            'description': 'Progetto Immobili',
+            'type': 'laboratorio'
+        },
+        {
+            'name': 'Playlist',
+            'id': 'playlist',
+            'sources': ['Playlist/src/Brano.java', 'Playlist/src/LibreriaMusicale.java', 'Playlist/src/Main.java'],
+            'output': 'docs/playlist-output.txt',
+            'compile': 'docs/playlist-compile.log',
+            'description': 'Progetto Playlist',
+            'type': 'laboratorio'
         }
     ]
     
