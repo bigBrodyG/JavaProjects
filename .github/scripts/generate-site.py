@@ -575,7 +575,7 @@ def main():
         {
             'name': 'Cerchio',
             'id': 'cerchio',
-            'sources': ['Cerchio/src/Cerchio.java'],
+            'sources': ['Esercizi/Cerchio/src/Cerchio.java'],
             'output': 'docs/cerchio-output.txt',
             'compile': 'docs/cerchio-compile.log',
             'description': 'Classe per calcolare area e circonferenza di un cerchio',
@@ -584,7 +584,7 @@ def main():
         {
             'name': 'mergeArray',
             'id': 'mergearray',
-            'sources': ['mergeArray/src/mergeArrays.java'],
+            'sources': ['Laboratorio/mergeArray/src/mergeArrays.java'],
             'output': 'docs/mergearray-output.txt',
             'compile': 'docs/mergearray-compile.log',
             'description': 'Unione e ordinamento di array',
@@ -593,7 +593,7 @@ def main():
         {
             'name': 'OggettoCD',
             'id': 'oggettocd',
-            'sources': ['OggettoCD/src/Cd.java', 'OggettoCD/src/PortaCD.java'],
+            'sources': ['Laboratorio/OggettoCD/src/Cd.java', 'Laboratorio/OggettoCD/src/PortaCD.java'],
             'output': 'docs/oggettocd-output.txt',
             'compile': 'docs/oggettocd-compile.log',
             'description': 'Gestione di un catalogo CD',
@@ -602,7 +602,7 @@ def main():
         {
             'name': 'Punto',
             'id': 'punto',
-            'sources': ['Punto/src/Punto.java'],
+            'sources': ['Esercizi/Punto/src/Punto.java'],
             'output': 'docs/punto-output.txt',
             'compile': 'docs/punto-compile.log',
             'description': 'Rappresentazione di un punto nel piano cartesiano',
@@ -611,7 +611,7 @@ def main():
         {
             'name': 'Triangolo',
             'id': 'triangolo',
-            'sources': ['Triangolo/src/Punto.java', 'Triangolo/src/Triangolo.java'],
+            'sources': ['Esercizi/Triangolo/src/Punto.java', 'Esercizi/Triangolo/src/Triangolo.java'],
             'output': 'docs/triangolo-output.txt',
             'compile': 'docs/triangolo-compile.log',
             'description': 'Gestione di triangoli e confronto tra forme congruenti',
@@ -620,7 +620,7 @@ def main():
         {
             'name': 'Rettangolo',
             'id': 'rettangolo',
-            'sources': ['Rettangolo/src/Punto.java', 'Rettangolo/src/Rettangolo.java'],
+            'sources': ['Laboratorio/Rettangolo/src/Punto.java', 'Laboratorio/Rettangolo/src/Rettangolo.java'],
             'output': 'docs/rettangolo-output.txt',
             'compile': 'docs/rettangolo-compile.log',
             'description': 'Calcolo di vertici e proprietà di un rettangolo',
@@ -629,7 +629,7 @@ def main():
         {
             'name': 'vocalcount',
             'id': 'vocalcount',
-            'sources': ['vocalcount/src/voc_count.java'],
+            'sources': ['Laboratorio/vocalcount/src/voc_count.java'],
             'output': 'docs/vocalcount-output.txt',
             'compile': 'docs/vocalcount-compile.log',
             'description': 'Conteggio delle vocali in una stringa',
@@ -638,7 +638,7 @@ def main():
         {
             'name': 'Libro',
             'id': 'libro',
-            'sources': ['Libro/src/Libro.java'],
+            'sources': ['Esercizi/Libro/src/Libro.java'],
             'output': 'docs/libro-output.txt',
             'compile': 'docs/libro-compile.log',
             'description': 'Gestione di oggetti libro con calcolo del prezzo',
@@ -647,7 +647,7 @@ def main():
         {
             'name': 'Orario',
             'id': 'orario',
-            'sources': ['Orario/src/Orario.java', 'Orario/src/TestOrario.java'],
+            'sources': ['Esercizi/Orario/src/Orario.java', 'Esercizi/Orario/src/TestOrario.java'],
             'output': 'docs/orario-output.txt',
             'compile': 'docs/orario-compile.log',
             'description': 'Gestione e manipolazione di orari',
@@ -656,19 +656,19 @@ def main():
         {
             'name': 'Software',
             'id': 'software',
-            'sources': ['Software/src/Software.java'],
+            'sources': ['Esercizi/Software/src/Software.java'],
             'output': 'docs/software-output.txt',
             'compile': 'docs/software-compile.log',
-            'description': 'Progetto Software',
+            'description': 'Gestione software con programmi e contenitori',
             'type': 'teoria'
         },
         {
             'name': 'SpeseManager',
             'id': 'spesemanager',
-            'sources': ['SpeseManager/src/Main.java', 'SpeseManager/src/SpesaManager.java', 'SpeseManager/src/Spese.java'],
+            'sources': ['Laboratorio/SpeseManager/src/Main.java', 'Laboratorio/SpeseManager/src/SpesaManager.java', 'Laboratorio/SpeseManager/src/Spese.java'],
             'output': 'docs/spesemanager-output.txt',
             'compile': 'docs/spesemanager-compile.log',
-            'description': 'Progetto SpeseManager',
+            'description': 'Gestore spese personali con statistiche',
             'type': 'laboratorio'
         },
         {
@@ -677,7 +677,7 @@ def main():
             'sources': ['01_Verifica_teoria/src/Main.java', '01_Verifica_teoria/src/SchedaSim.java', '01_Verifica_teoria/src/Telefonata.java'],
             'output': 'docs/01_verifica_teoria-output.txt',
             'compile': 'docs/01_verifica_teoria-compile.log',
-            'description': 'Progetto 01_Verifica_teoria',
+            'description': 'Verifica teoria: gestione scheda SIM e telefonate',
             'type': 'teoria'
         },
         {
@@ -686,43 +686,123 @@ def main():
             'sources': ['02_Verifica_lab/src/MacchinaDistributrice.java', '02_Verifica_lab/src/Main.java', '02_Verifica_lab/src/Prodotto.java'],
             'output': 'docs/02_verifica_lab-output.txt',
             'compile': 'docs/02_verifica_lab-compile.log',
-            'description': 'Progetto 02_Verifica_lab',
+            'description': 'Verifica lab: macchina distributrice con prodotti',
             'type': 'laboratorio'
         },
         {
             'name': 'Abbonamento',
             'id': 'abbonamento',
-            'sources': ['Abbonamento/src/Cd.java', 'Abbonamento/src/Main.java', 'Abbonamento/src/PortaCD.java'],
+            'sources': ['Esercizi/Abbonamento/src/Cd.java', 'Esercizi/Abbonamento/src/Main.java', 'Esercizi/Abbonamento/src/PortaCD.java'],
             'output': 'docs/abbonamento-output.txt',
             'compile': 'docs/abbonamento-compile.log',
-            'description': 'Progetto Abbonamento',
-            'type': 'laboratorio'
+            'description': 'Gestione CD e porta CD con abbonamenti',
+            'type': 'teoria'
         },
         {
             'name': 'Ereditarietà',
             'id': 'ereditarietà',
-            'sources': ['Ereditarietà/src/Docente.java', 'Ereditarietà/src/Main.java', 'Ereditarietà/src/Persona.java', 'Ereditarietà/src/Studente.java'],
+            'sources': ['Esercizi/Ereditarietà/src/Docente.java', 'Esercizi/Ereditarietà/src/Main.java', 'Esercizi/Ereditarietà/src/Persona.java', 'Esercizi/Ereditarietà/src/Studente.java'],
             'output': 'docs/ereditarietà-output.txt',
             'compile': 'docs/ereditarietà-compile.log',
-            'description': 'Progetto Ereditarietà',
+            'description': 'Ereditarietà: persone, docenti e studenti',
             'type': 'teoria'
         },
         {
             'name': 'Immobili',
             'id': 'immobili',
-            'sources': ['Immobili/src/Abitazione.java', 'Immobili/src/Appartamento.java', 'Immobili/src/Test.java', 'Immobili/src/Villa.java'],
+            'sources': ['Esercizi/Immobili/src/Abitazione.java', 'Esercizi/Immobili/src/Appartamento.java', 'Esercizi/Immobili/src/Test.java', 'Esercizi/Immobili/src/Villa.java'],
             'output': 'docs/immobili-output.txt',
             'compile': 'docs/immobili-compile.log',
-            'description': 'Progetto Immobili',
-            'type': 'laboratorio'
+            'description': 'Gestione immobili: appartamenti e ville',
+            'type': 'teoria'
         },
         {
             'name': 'Playlist',
             'id': 'playlist',
-            'sources': ['Playlist/src/Brano.java', 'Playlist/src/LibreriaMusicale.java', 'Playlist/src/Main.java'],
+            'sources': ['Laboratorio/Playlist/src/Brano.java', 'Laboratorio/Playlist/src/LibreriaMusicale.java', 'Laboratorio/Playlist/src/Main.java'],
             'output': 'docs/playlist-output.txt',
             'compile': 'docs/playlist-compile.log',
-            'description': 'Progetto Playlist',
+            'description': 'Libreria musicale con brani e playlist',
+            'type': 'laboratorio'
+        },
+        {
+            'name': 'Autonoleggio',
+            'id': 'autonoleggio',
+            'sources': [
+                'Esercizi/Autonoleggio/src/Main.java',
+                'Esercizi/Autonoleggio/src/Veicolo.java',
+                'Esercizi/Autonoleggio/src/Autovettura.java',
+                'Esercizi/Autonoleggio/src/Furgone.java',
+                'Esercizi/Autonoleggio/src/Noleggio.java',
+                'Esercizi/Autonoleggio/src/GestioneAutonoleggio.java'
+            ],
+            'output': 'docs/autonoleggio-output.txt',
+            'compile': 'docs/autonoleggio-compile.log',
+            'description': 'Sistema gestione autonoleggio con calcolo costi',
+            'type': 'teoria'
+        },
+        {
+            'name': 'GestionePC',
+            'id': 'gestionepc',
+            'sources': [
+                'Esercizi/GestionePC/src/Main.java',
+                'Esercizi/GestionePC/src/PC.java',
+                'Esercizi/GestionePC/src/Desktop.java',
+                'Esercizi/GestionePC/src/Notebook.java',
+                'Esercizi/GestionePC/src/Server.java',
+                'Esercizi/GestionePC/src/Palmare.java',
+                'Esercizi/GestionePC/src/PCFisso.java',
+                'Esercizi/GestionePC/src/PCPortatile.java',
+                'Esercizi/GestionePC/src/InventarioPC.java'
+            ],
+            'output': 'docs/gestionepc-output.txt',
+            'compile': 'docs/gestionepc-compile.log',
+            'description': 'Inventario PC con gerarchia classi',
+            'type': 'teoria'
+        },
+        {
+            'name': 'Treni',
+            'id': 'treni',
+            'sources': [
+                'Esercizi/Treni/src/Main.java',
+                'Esercizi/Treni/src/Vagone.java',
+                'Esercizi/Treni/src/VagonePasseggeri.java',
+                'Esercizi/Treni/src/VagoneMerci.java',
+                'Esercizi/Treni/src/Treno.java'
+            ],
+            'output': 'docs/treni-output.txt',
+            'compile': 'docs/treni-compile.log',
+            'description': 'Composizione treni con vagoni passeggeri e merci',
+            'type': 'teoria'
+        },
+        {
+            'name': 'BiblioOverride',
+            'id': 'bibliooverride',
+            'sources': [
+                'Laboratorio/BiblioOverride/src/Main.java',
+                'Laboratorio/BiblioOverride/src/Pubblicazione.java',
+                'Laboratorio/BiblioOverride/src/Libro.java',
+                'Laboratorio/BiblioOverride/src/Rivista.java',
+                'Laboratorio/BiblioOverride/src/Biblioteca.java'
+            ],
+            'output': 'docs/bibliooverride-output.txt',
+            'compile': 'docs/bibliooverride-compile.log',
+            'description': 'Biblioteca con override durata prestito',
+            'type': 'laboratorio'
+        },
+        {
+            'name': 'Biblioteca',
+            'id': 'biblioteca',
+            'sources': [
+                'Laboratorio/Biblioteca/src/Main.java',
+                'Laboratorio/Biblioteca/src/Pubblicazione.java',
+                'Laboratorio/Biblioteca/src/Libro.java',
+                'Laboratorio/Biblioteca/src/Rivista.java',
+                'Laboratorio/Biblioteca/src/Biblioteca.java'
+            ],
+            'output': 'docs/biblioteca-output.txt',
+            'compile': 'docs/biblioteca-compile.log',
+            'description': 'Sistema gestione biblioteca',
             'type': 'laboratorio'
         }
     ]
