@@ -584,7 +584,7 @@ def main():
         {
             'name': 'mergeArray',
             'id': 'mergearray',
-            'sources': ['Laboratorio/mergeArray/src/mergeArrays.java'],
+            'sources': ['Laboratorio/mergeArray/src/MergeArrays.java'],
             'output': 'docs/mergearray-output.txt',
             'compile': 'docs/mergearray-compile.log',
             'description': 'Unione e ordinamento di array',
@@ -629,7 +629,7 @@ def main():
         {
             'name': 'vocalcount',
             'id': 'vocalcount',
-            'sources': ['Laboratorio/vocalcount/src/voc_count.java'],
+            'sources': ['Laboratorio/vocalcount/src/VocalCount.java'],
             'output': 'docs/vocalcount-output.txt',
             'compile': 'docs/vocalcount-compile.log',
             'description': 'Conteggio delle vocali in una stringa',
