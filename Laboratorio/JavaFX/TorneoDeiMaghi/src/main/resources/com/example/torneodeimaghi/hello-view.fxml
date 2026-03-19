@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="15.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.torneodeimaghi.HelloController">
+    <padding>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+    </padding>
+
+    <!-- Title -->
+    <Label text="🧙 Arena dei Maghi - Simulazione Free-for-All" style="-fx-font-size: 18; -fx-font-weight: bold;">
+        <font>
+            <Font size="18.0"/>
+        </font>
+    </Label>
+
+    <!-- Control Buttons -->
+    <HBox spacing="10.0">
+        <Button fx:id="startButton" text="▶ Avvia Simulazione" onAction="#onStartSimulation" style="-fx-font-size: 12; -fx-padding: 10;"/>
+        <Button fx:id="pauseButton" text="⏸ Pausa" onAction="#onPauseSimulation" style="-fx-font-size: 12; -fx-padding: 10;" disable="true"/>
+        <Button fx:id="resetButton" text="🔄 Reset" onAction="#onResetSimulation" style="-fx-font-size: 12; -fx-padding: 10;"/>
+        <Label fx:id="speedLabel" text="Velocità: " style="-fx-font-size: 12;"/>
+        <Label fx:id="speedValue" text="1x" style="-fx-font-size: 12; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <!-- Log Area -->
+    <Label text="Log della Simulazione:" style="-fx-font-weight: bold; -fx-font-size: 12;"/>
+    <ScrollPane style="-fx-control-inner-background: #f5f5f5;" fitToWidth="true" VBox.vgrow="ALWAYS">
+        <TextArea fx:id="logArea" wrapText="true" editable="false" style="-fx-control-inner-background: #ffffff; -fx-font-family: 'Consolas'; -fx-font-size: 11;"/>
+    </ScrollPane>
+
+    <!-- Wizards Status -->
+    <Label text="Stato dei Maghi:" style="-fx-font-weight: bold; -fx-font-size: 12;"/>
+    <ScrollPane style="-fx-control-inner-background: #f5f5f5;" fitToWidth="true" prefHeight="200.0">
+        <VBox fx:id="wizardsContainer" spacing="5.0" style="-fx-padding: 5;"/>
+    </ScrollPane>
+
+    <!-- Result -->
+    <Label fx:id="resultLabel" text="" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #00aa00;"/>
+</VBox>
