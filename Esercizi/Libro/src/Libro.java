@@ -1,4 +1,5 @@
 public class Libro {
+    private static final String BOOK_DETAILS_FORMAT = "\n----------------\nTitolo: %s\nAutore: %s\n----------------------------\n";
     private String titolo;
     private String autore;
     private int numeroPagine;
@@ -58,15 +59,15 @@ public class Libro {
         l1.setCostoPagina(0.10);
 
         Libro l2 = new Libro("Gasa", "per dio", 1500);
-        System.out.println("\n\n----------------\nTitolo: " + l1.getTitolo() + "\nAutore: " + l1.getAutore() + "\n----------------------------\n");
+        System.out.printf(BOOK_DETAILS_FORMAT, l1.getTitolo(), l1.getAutore());
         l2.setTitolo("Gasa - per dio");
-        System.out.println("\n----------------\nTitolo: " + l2.getTitolo() + "\nAutore: " + l2.getAutore() + "\n----------------------------\n");
+        System.out.printf(BOOK_DETAILS_FORMAT, l2.getTitolo(), l2.getAutore());
         l2.setAutore("dentro");
-        System.out.println("\n----------------\nTitolo: " + l2.getTitolo() + "\nAutore: " + l2.getAutore() + "\n----------------------------\n");
+        System.out.printf(BOOK_DETAILS_FORMAT, l2.getTitolo(), l2.getAutore());
         l2.setCostoPagina(0.15);
-        System.out.println("\n----------------\nTitolo: " + l2.getTitolo() + "\nAutore: " + l2.getAutore() + "\n----------------------------\n");
+        System.out.printf(BOOK_DETAILS_FORMAT, l2.getTitolo(), l2.getAutore());
         l2.setAutore("aura");
-        System.out.println("\n----------------\nTitolo: " + l2.getTitolo() + "\nAutore: " + l2.getAutore() + "\n----------------------------\n");
+        System.out.printf(BOOK_DETAILS_FORMAT, l2.getTitolo(), l2.getAutore());
         System.out.println("Prezzo l2: " + l2.prezzo());
         System.out.println("Prezzo l1: " + l1.prezzo());
         
