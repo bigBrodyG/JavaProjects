@@ -127,7 +127,7 @@ public class Calcolatrice extends Application {
             nuovoNumero = false;
         } else {
             // se c'e' 0 lo sostituisco sennò aggiungo
-            if (display.getText().equals("0")) {
+            if ("0".equals(display.getText())) {
                 display.setText(cifra);
             } else {
                 display.setText(display.getText() + cifra);
@@ -147,19 +147,22 @@ public class Calcolatrice extends Application {
         double numero2 = Double.parseDouble(display.getText());
         double risultato = 0;
 
-        // switch case ma con if xke era + veloce da scrivere
-        if (operatore.equals("+")) {
-            risultato = numero1 + numero2;
-        } else if (operatore.equals("-")) {
-            risultato = numero1 - numero2;
-        } else if (operatore.equals("*")) {
-            risultato = numero1 * numero2;
-        } else if (operatore.equals("/")) {
-            if (numero2 != 0) {
-                risultato = numero1 / numero2;
-            } else {
-                display.setText("Errore");  // div x 0 = male
-                nuovoNumero = true;
+        // refactored to switch for better readability and performance
+        switch (operatore) {
+            case "+" -> risultato = numero1 + numero2;
+            case "-" -> risultato = numero1 - numero2;
+            case "*" -> risultato = numero1 * numero2;
+            case "/" -> {
+                if (numero2 != 0) {
+                    risultato = numero1 / numero2;
+                } else {
+                    display.setText("Errore");  // div x 0 = male
+                    nuovoNumero = true;
+                    return;
+                }
+            }
+            default -> {
+                // No operator or unknown operator
                 return;
             }
         }

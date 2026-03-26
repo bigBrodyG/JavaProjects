@@ -75,7 +75,7 @@ public class HelloController {
 
     private boolean validateCredentials(String user, String pass) {
         // Simple hardcoded credentials for demo
-        return user.equals("admin") && pass.equals("password123");
+        return "admin".equals(user) && "password123".equals(pass);
     }
 
     private void showError(String message) {
