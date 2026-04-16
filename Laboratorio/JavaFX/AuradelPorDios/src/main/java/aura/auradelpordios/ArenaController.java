@@ -163,7 +163,7 @@ public class ArenaController {
         battleLog.appendText("\n🚨🚨🚨 ALLARME! AURA INFINITA ATTIVATA! 🚨🚨🚨\n");
         
         for (Wizard w : arena.getWizards()) {
-            if (w.getNome().equals("Smongolo")) {
+            if ("Smongolo".equals(w.getNome())) {
                 w.heal(99999);
                 w.rest(); w.rest(); w.rest(); w.rest(); w.rest(); // Fake max mana
                 battleLog.appendText("💪 SMONGOLO ASSORBE L'ENERGIA DELL'UNIVERSO E DIVENTA UN DIO!!! 💪\n");

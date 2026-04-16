@@ -118,7 +118,7 @@ public class InventarioPC {
     public int size() {
         return pcs.size();
     }
-
+@Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("=== INVENTARIO PC ===\n");
