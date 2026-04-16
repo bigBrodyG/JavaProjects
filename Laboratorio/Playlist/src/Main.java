@@ -14,11 +14,11 @@ public class Main {
         ArrayList<Brano> brani = lb.getBrani();
         for (Brano b : brani) {
             int listndTimes;
-            if (b.getArtista().equals("Artie 5ive")) {
+            if ("Artie 5ive".equals(b.getArtista())) {
                 listndTimes = 3;
-            } else if (b.getArtista().equals("Mambolosco")) {
+            } else if ("Mambolosco".equals(b.getArtista())) {
                 listndTimes = 4;
-            } else if (b.getArtista().equals("Diss Gacha")) {
+            } else if ("Diss Gacha".equals(b.getArtista())) {
                 listndTimes = 5;
             } else {
                 listndTimes = 2;

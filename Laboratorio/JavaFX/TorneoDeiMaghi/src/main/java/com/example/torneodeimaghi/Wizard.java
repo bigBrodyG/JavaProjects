@@ -61,12 +61,12 @@ public class Wizard {
         
         if (haManaPer(s)) {
             mana -= s.getManaCost();
-            if (s.getType().equals("ATTACK")) {
+            if ("ATTACK".equals(s.getType())) {
                 int danno = s.getBaseValue() + power - tohit.getDef();
                 if (danno < 1) danno = 1;
                 tohit.riceviDanno(danno);
                 return nome + " colpisce " + tohit.getNome() + " con " + s.getName() + " (" + danno + " danni)!";
-            } else if (s.getType().equals("HEAL")) {
+            } else if ("HEAL".equals(s.getType())) {
                 leef(s.getBaseValue());
                 return nome + " si cura di " + s.getBaseValue() + " HP con " + s.getName() + ".";
             }

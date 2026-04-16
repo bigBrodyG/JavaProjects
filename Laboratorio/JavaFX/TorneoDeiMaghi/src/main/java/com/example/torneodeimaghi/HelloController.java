@@ -124,6 +124,7 @@ public class HelloController {
                 Image img = new Image(getClass().getResourceAsStream("/com/example/torneodeimaghi/imagess/" + mago.getSpritePath()));
                 imgView.setImage(img);
             } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Immagine non trovata: " + mago.getSpritePath());
             }
 
