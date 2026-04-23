@@ -2,6 +2,8 @@ import java.util.List;
 
 // Entry point test inventario
 public class Main {
+    private static final String WINDOWS_11_PRO = "Windows 11 Pro";
+
     public static void main(String[] args) {
         System.out.println("=== SISTEMA DI GESTIONE INVENTARIO PC ===\n");
 
@@ -10,12 +12,12 @@ public class Main {
         // desktop
         Desktop desk1 = new Desktop(
             "Intel Core i7-13700K", 32, 1000,
-            "Dell", "Optiplex 7090", "Windows 11 Pro",
+            "Dell", "Optiplex 7090", WINDOWS_11_PRO,
             "grande", "NVIDIA RTX 4070", "Realtek ALC897"
         );
         Desktop desk2 = new Desktop(
             "AMD Ryzen 9 5950X", 64, 2000,
-            "HP", "EliteDesk 800 G9", "Windows 11 Pro",
+            "HP", "EliteDesk 800 G9", WINDOWS_11_PRO,
             "medio", "AMD Radeon RX 7600", "Realtek ALC1220"
         );
 
@@ -39,7 +41,7 @@ public class Main {
         // notebook
         Notebook nb1 = new Notebook(
             "Intel Core i5-1235U", 16, 512,
-            "Lenovo", "ThinkPad X1 Carbon Gen 10", "Windows 11 Pro",
+            "Lenovo", "ThinkPad X1 Carbon Gen 10", WINDOWS_11_PRO,
             1.12, 2.2, 31.5, 21.7, 14.0, true,
             true, 2.1
         );
@@ -115,9 +117,9 @@ public class Main {
             System.out.println("  - " + pc);
         }
 
-        System.out.println("\n=== TEST: RICERCA PER SISTEMA OPERATIVO (Windows 11 Pro) ===");
-        List<PC> pcWin11 = inv.cercaPerSistemaOperativo("Windows 11 Pro");
-        System.out.println("PC con Windows 11 Pro trovati: " + pcWin11.size());
+        System.out.println("\n=== TEST: RICERCA PER SISTEMA OPERATIVO (" + WINDOWS_11_PRO + ") ===");
+        List<PC> pcWin11 = inv.cercaPerSistemaOperativo(WINDOWS_11_PRO);
+        System.out.println("PC con " + WINDOWS_11_PRO + " trovati: " + pcWin11.size());
         for (PC pc : pcWin11) {
             System.out.println("  - " + pc);
         }
