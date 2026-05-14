@@ -47,59 +47,54 @@ jobs:
     - name: Auto-detect and compile all Java projects
       run: |
         echo "🔍 Auto-detecting Java projects..."
-        
-        # Find all Java projects in root, Esercizi/, and Laboratorio/ folders
+        REPO_ROOT="$(pwd)"
+
         for project_dir in */src Esercizi/*/src Laboratorio/*/src; do
-          # Skip if not a valid directory
-          if [ ! -d "$project_dir" ]; then
-            continue
-          fi
-          
+          [ -d "$project_dir" ] || continue
+
           project_path=$(dirname "$project_dir")
           project_name=$(basename "$project_path")
-          
-          # Check if there are any Java files
+          slug=$(echo "$project_name" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/-\+/-/g' | sed 's/^-//;s/-$//')
+          output_file="$REPO_ROOT/docs/${slug}-output.txt"
+
           java_files=$(find "$project_path/src" -name "*.java" 2>/dev/null | wc -l)
-          if [ "$java_files" -eq 0 ]; then
-            continue
-          fi
-          
-          echo "📦 Compiling $project_name (from $project_path)..."
-          
-          # Ensure bin directory exists
+          [ "$java_files" -eq 0 ] && continue
+
+          echo "📦 Compiling $project_name..."
           mkdir -p "$project_path/bin"
-          
-          # Compile all Java files in the project
-          javac -d "$project_path/bin" "$project_path/src"/*.java 2>&1 | tee "docs/${project_name,,}-compile.log" || true
-          
-          # Find the main class by trying to run each compiled class
+          javac -d "$project_path/bin" "$project_path/src"/*.java 2>&1 || true
+
           main_class=""
-          if [ -d "$project_path/bin" ] && [ "$(ls -A $project_path/bin/*.class 2>/dev/null | wc -l)" -gt 0 ]; then
-            for class_file in "$project_path/bin"/*.class; do
-              if [ -f "$class_file" ]; then
+          if ls "$project_path/bin"/*.class 2>/dev/null | grep -q .; then
+            # Try class matching project name
+            candidate=$(echo "$project_name" | sed 's/[^A-Za-z0-9]//g')
+            if [ -f "$project_path/bin/${candidate}.class" ]; then
+              (cd "$project_path/bin" && timeout 5 java "$candidate" </dev/null >/dev/null 2>&1) && main_class="$candidate"
+            fi
+            # Try Main
+            if [ -z "$main_class" ] && [ -f "$project_path/bin/Main.class" ]; then
+              (cd "$project_path/bin" && timeout 5 java Main </dev/null >/dev/null 2>&1) && main_class="Main"
+            fi
+            # Try all classes
+            if [ -z "$main_class" ]; then
+              for class_file in "$project_path/bin"/*.class; do
                 class_name=$(basename "$class_file" .class)
-                # Try to run it - if it has a main method it will execute
-                if (cd "$project_path/bin" && timeout 5 java "$class_name" > /dev/null 2>&1); then
+                if (cd "$project_path/bin" && timeout 5 java "$class_name" </dev/null >/dev/null 2>&1); then
                   main_class="$class_name"
                   break
                 fi
-              fi
-            done
+              done
+            fi
           fi
-          
-          # If we found a main class, run it and capture output
+
           if [ -n "$main_class" ]; then
             echo "▶️  Running $project_name ($main_class)..."
-            (cd "$project_path/bin" && timeout 10 java "$main_class" > "$(pwd | sed 's|/[^/]*$||'| sed 's|/[^/]*$||')/docs/${project_name,,}-output.txt" 2>&1) || echo "Error running $main_class" > "docs/${project_name,,}-output.txt"
+            cd "$project_path/bin"
+            timeout 10 java "$main_class" </dev/null > "$output_file" 2>&1 || true
+            cd "$REPO_ROOT"
+            [ -s "$output_file" ] || rm -f "$output_file"
           else
-            # Try Main as fallback
-            if [ -f "$project_path/bin/Main.class" ]; then
-              echo "▶️  Running $project_name (Main)..."
-              (cd "$project_path/bin" && timeout 10 java Main > "$(pwd | sed 's|/[^/]*$||'| sed 's|/[^/]*$||')/docs/${project_name,,}-output.txt" 2>&1) || echo "Error running Main" > "docs/${project_name,,}-output.txt"
-            else
-              echo "⚠️  No main class found for $project_name"
-              echo "No main method found" > "docs/${project_name,,}-output.txt"
-            fi
+            echo "⚠️  No runnable main class for $project_name"
           fi
         done
     
