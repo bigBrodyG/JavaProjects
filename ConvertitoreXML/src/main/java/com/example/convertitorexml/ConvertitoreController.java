@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 
 public class ConvertitoreController {
 
+    private static final String INPUT_ERROR = "Input Error";
+
     // Exchange rate (approximation - 1 EUR = 1.08 USD as of 2026)
     private static final double EUR_TO_USD = 1.08;
     private static final double USD_TO_EUR = 1 / EUR_TO_USD;
@@ -27,7 +29,7 @@ public class ConvertitoreController {
     @FXML
     private TextField tfEuro;
 
-    
+
     @FXML
     void btnChiudiEvent(ActionEvent event) {
         System.exit(0);
@@ -38,13 +40,13 @@ public class ConvertitoreController {
         try {
             String dollarText = tfDollari.getText().trim();
             if (dollarText.isEmpty()) {
-                showError("Input Error", "Please enter an amount in dollars.");
+                showError(INPUT_ERROR, "Please enter an amount in dollars.");
                 return;
             }
 
             double dollars = Double.parseDouble(dollarText);
             if (dollars < 0) {
-                showError("Input Error", "Amount cannot be negative.");
+                showError(INPUT_ERROR, "Amount cannot be negative.");
                 return;
             }
 
@@ -52,7 +54,7 @@ public class ConvertitoreController {
             tfEuro.setText(String.format("%.2f", euros));
 
         } catch (NumberFormatException e) {
-            showError("Input Error", "Please enter a valid number.");
+            showError(INPUT_ERROR, "Please enter a valid number.");
         }
     }
 
@@ -61,13 +63,13 @@ public class ConvertitoreController {
         try {
             String euroText = tfEuro.getText().trim();
             if (euroText.isEmpty()) {
-                showError("Input Error", "Please enter an amount in euros.");
+                showError(INPUT_ERROR, "Please enter an amount in euros.");
                 return;
             }
 
             double euros = Double.parseDouble(euroText);
             if (euros < 0) {
-                showError("Input Error", "Amount cannot be negative.");
+                showError(INPUT_ERROR, "Amount cannot be negative.");
                 return;
             }
 
@@ -75,7 +77,7 @@ public class ConvertitoreController {
             tfDollari.setText(String.format("%.2f", dollars));
 
         } catch (NumberFormatException e) {
-            showError("Input Error", "Please enter a valid number.");
+            showError(INPUT_ERROR, "Please enter a valid number.");
         }
     }
 

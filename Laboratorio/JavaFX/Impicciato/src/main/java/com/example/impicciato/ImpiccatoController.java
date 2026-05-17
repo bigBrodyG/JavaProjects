@@ -101,6 +101,7 @@ public class ImpiccatoController {
                 Image image = new Image(is);
                 imgImpiccato.setImage(image);
             } catch (Exception ignored) {
+                ignored.printStackTrace();
             }
         }
     }
