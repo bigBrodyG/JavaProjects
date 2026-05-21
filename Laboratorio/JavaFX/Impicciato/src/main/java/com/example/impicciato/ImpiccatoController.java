@@ -100,7 +100,8 @@ public class ImpiccatoController {
                 if (is == null) return;
                 Image image = new Image(is);
                 imgImpiccato.setImage(image);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

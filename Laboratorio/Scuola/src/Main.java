@@ -2,6 +2,7 @@
 import java.time.LocalDate;
 
 public class Main {
+    private static final String STIPENDIO_EFFETTIVO = "Stipendio effettivo: €";
 
     public static void main(String[] args) {
         System.out.println("=== GESTIONE DIPENDENTI SCUOLA ===");
@@ -24,7 +25,7 @@ public class Main {
         // Test metodi docenti
         System.out.println("--- DOCENTI ---");
         System.out.println(docente1);
-        System.out.println("Stipendio effettivo: €" + docente1.calcolaStipendio());
+        System.out.println(STIPENDIO_EFFETTIVO + docente1.calcolaStipendio());
         System.out.println("Nome: " + docente1.getNome());
         System.out.println("Sesso: " + docente1.getSesso());
         System.out.println("Data di nascita: " + docente1.getBirth());
@@ -33,30 +34,30 @@ public class Main {
         System.out.println();
 
         System.out.println(docente2);
-        System.out.println("Stipendio effettivo: €" + docente2.calcolaStipendio());
+        System.out.println(STIPENDIO_EFFETTIVO + docente2.calcolaStipendio());
         System.out.println();
 
         // Test metodi impiegati
         System.out.println("--- IMPIEGATI ---");
         System.out.println(impiegato1);
-        System.out.println("Stipendio effettivo: €" + impiegato1.calcolaStipendio());
+        System.out.println(STIPENDIO_EFFETTIVO + impiegato1.calcolaStipendio());
         System.out.println("Livello: " + impiegato1.getLivello());
         System.out.println();
 
         System.out.println(impiegato2);
-        System.out.println("Stipendio effettivo: €" + impiegato2.calcolaStipendio());
+        System.out.println(STIPENDIO_EFFETTIVO + impiegato2.calcolaStipendio());
         System.out.println();
 
         // Test metodi impiegati con straordinari
         System.out.println("--- IMPIEGATI CON STRAORDINARI ---");
         System.out.println(impStraord1);
-        System.out.println("Stipendio effettivo: €" + impStraord1.calcolaStipendio());
+        System.out.println(STIPENDIO_EFFETTIVO + impStraord1.calcolaStipendio());
         System.out.println("Ore straordinario: " + impStraord1.getOreStraordinario());
         System.out.println("Retribuzione oraria: €" + ImpiegatoStraordinario.getRetribuzioneOraria());
         System.out.println();
 
         System.out.println(impStraord2);
-        System.out.println("Stipendio effettivo: €" + impStraord2.calcolaStipendio());
+        System.out.println(STIPENDIO_EFFETTIVO + impStraord2.calcolaStipendio());
         System.out.println();
 
         // Test setter
