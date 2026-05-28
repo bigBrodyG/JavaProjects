@@ -27,7 +27,7 @@ public class ConvertitoreController {
     @FXML
     private TextField tfEuro;
 
-    
+
     @FXML
     void btnChiudiEvent(ActionEvent event) {
         System.exit(0);

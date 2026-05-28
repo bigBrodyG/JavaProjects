@@ -1,4 +1,6 @@
 public class Main {
+    private static final String VAGONE_ADDED_PREFIX = "+ ";
+
     public static void main(String[] args) {
         System.out.println("=== TRENI ===\n");
         
@@ -14,25 +16,25 @@ public class Main {
             "VP-001", 45000, "Alstom", 2015, 1, 60, 45
         );
         trenoRegionale.addVag(vp1);
-        System.out.println("+ " + vp1.toString());
+        System.out.println(VAGONE_ADDED_PREFIX + vp1.toString());
         
         VagonePasseggeri vp2 = new VagonePasseggeri(
             "VP-002", 42000, "Bombardier", 2018, 1, 64, 58
         );
         trenoRegionale.addVag(vp2);
-        System.out.println("+ " + vp2.toString());
+        System.out.println(VAGONE_ADDED_PREFIX + vp2.toString());
         
         VagonePasseggeri vp3 = new VagonePasseggeri(
             "VP-003", 40000, "Siemens", 2020, 2, 80, 72
         );
         trenoRegionale.addVag(vp3);
-        System.out.println("+ " + vp3.toString());
+        System.out.println(VAGONE_ADDED_PREFIX + vp3.toString());
         
         VagonePasseggeri vp4 = new VagonePasseggeri(
             "VP-004", 41000, "Alstom", 2019, 2, 80, 65
         );
         trenoRegionale.addVag(vp4);
-        System.out.println("+ " + vp4.toString());
+        System.out.println(VAGONE_ADDED_PREFIX + vp4.toString());
         
         System.out.println();
         
@@ -43,19 +45,19 @@ public class Main {
             "VM-101", 28000, "Greenbrier", 2016, 120.0, 50000, 42000
         );
         trenoRegionale.addVag(vm1);
-        System.out.println("+ " + vm1.toString());
+        System.out.println(VAGONE_ADDED_PREFIX + vm1.toString());
         
         VagoneMerci vm2 = new VagoneMerci(
             "VM-102", 30000, "FreightCar", 2017, 140.0, 60000, 55000
         );
         trenoRegionale.addVag(vm2);
-        System.out.println("+ " + vm2.toString());
+        System.out.println(VAGONE_ADDED_PREFIX + vm2.toString());
         
         VagoneMerci vm3 = new VagoneMerci(
             "VM-103", 26000, "Greenbrier", 2021, 100.0, 45000, 38000
         );
         trenoRegionale.addVag(vm3);
-        System.out.println("+ " + vm3.toString());
+        System.out.println(VAGONE_ADDED_PREFIX + vm3.toString());
         
         System.out.println();
         System.out.println("=".repeat(80));

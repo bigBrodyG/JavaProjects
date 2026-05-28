@@ -20,11 +20,11 @@ public class Main {
 		Prodotto brioche = new Prodotto("brioche", 100, 0.70);
 
 		MacchinaDistributrice Argenta = new MacchinaDistributrice();
-		Argenta.aggingiProdotto(acqua);
-		Argenta.aggingiProdotto(brioche);
-		Argenta.aggingiProdotto(spritz);
-		Argenta.aggingiProdotto(croccantelle);
-		Argenta.aggingiProdotto(snack);
+		Argenta.aggiungiProdotto(acqua);
+		Argenta.aggiungiProdotto(brioche);
+		Argenta.aggiungiProdotto(spritz);
+		Argenta.aggiungiProdotto(croccantelle);
+		Argenta.aggiungiProdotto(snack);
 		System.out.println("\n\n\t Benvenuto!\n  Macchina Distributrice 1.0.0\n------------------------------------\n");
 		System.out.println(Argenta.toString());
 		System.out.println("\n\nAcquistiamo alcuni prodotti....\nmhhh....\nVoglio uno snack!\nControlliamo ci sia!");
