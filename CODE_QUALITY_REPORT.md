@@ -12,6 +12,15 @@ A comprehensive code quality audit and fix session was performed. All identified
     - `AuradelPorDios` -> `AuraProject`
 - **Internal Reference Updates:** All package declarations, imports, FXML controller references, and module definitions were updated to reflect the new project names.
 
+## Metrics
+- **Projects Updated:** 38
+- **Compilation Errors Fixed:** 3
+- **Warnings Resolved:** 15+
+- **Security Improvements:** 2
+- **Renamed Projects:** 2
+
+## Details
+
 ### 2. Warning Analysis & Cleanup
 - **Unused Imports:** Removed unused imports in `ConvertitoreXML` and `02_Verifica_lab`.
 - **Unused Variables:** Identified and cleaned up several likely unused local variables.
@@ -24,13 +33,6 @@ A comprehensive code quality audit and fix session was performed. All identified
 ### 4. Best Practices & Security
 - **Null-Safe Comparisons:** Updated string comparisons in `AuraApp` to use the `"literal".equals(variable)` pattern.
 - **Security:** Extracted a hardcoded password in `AuraApp` into a constant with a "to-be-replaced" comment, preparing it for more secure authentication methods.
-
-## Metrics
-- **Projects Updated:** 38
-- **Compilation Errors Fixed:** 3
-- **Warnings Resolved:** 15+
-- **Security Improvements:** 2
-- **Renamed Projects:** 2
 
 ## Recommendations
 - **Automated Linting:** Integrate a linter like Checkstyle or SonarLint into the CI/CD pipeline to catch these issues earlier.
