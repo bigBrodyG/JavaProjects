@@ -3,7 +3,7 @@ import java.util.ArrayList;
 // TODO: Auto-generated Javadoc
 /**
  * MacchinaDistributrice.
- * 
+ *
  * @author giordii.dev
  */
 
@@ -25,10 +25,10 @@ public class MacchinaDistributrice {
 	 *
 	 * @param p il p
 	 */
-	public void aggingiProdotto(Prodotto p) {
+	public void aggiungiProdotto(Prodotto p) {
 		this.prodotti.add(p);
 	}
-	
+
 
 	/**
 	 * Cerca il prodotto in base al nome.

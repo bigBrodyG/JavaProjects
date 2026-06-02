@@ -100,7 +100,9 @@ public class ImpiccatoController {
                 if (is == null) return;
                 Image image = new Image(is);
                 imgImpiccato.setImage(image);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                // If the image for the current mistake count is missing, we just don't update it
+                e.printStackTrace();
             }
         }
     }

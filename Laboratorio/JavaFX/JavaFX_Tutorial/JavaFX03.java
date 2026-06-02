@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 
 // 3) TextField + Button + Label (Hello + Nome)
 public class JavaFX03 extends Application{
+    @Override
     public void start(Stage stage) {
         TextField txt = new TextField();
         txt.setPromptText("Inserisci il tuo nome");
