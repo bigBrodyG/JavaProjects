@@ -1,0 +1,261 @@
+# Instincts generated from https://github.com/bigBrodyG/JavaProjects
+# Generated: 2026-05-21T22:41:51.739Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: JavaProjects-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/bigBrodyG/JavaProjects
+---
+
+# JavaProjects Commit Length
+
+## Action
+
+Write moderate-length commit messages (~68 characters)
+
+## Evidence
+
+- Average commit message length: 68 chars
+- Based on 1 commits
+
+---
+id: JavaProjects-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/bigBrodyG/JavaProjects
+---
+
+# JavaProjects Naming Files
+
+## Action
+
+Use PascalCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: PascalCase
+
+---
+id: JavaProjects-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/bigBrodyG/JavaProjects
+---
+
+# JavaProjects Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: JavaProjects-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/bigBrodyG/JavaProjects
+---
+
+# JavaProjects Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: JavaProjects-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/bigBrodyG/JavaProjects
+---
+
+# JavaProjects Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: javaprojects-instinct-class-naming
+trigger: "When creating a new Java class file"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: bigBrodyG/JavaProjects
+---
+
+# Javaprojects Instinct Class Naming
+
+## Action
+
+Name the file and class using PascalCase
+
+## Evidence
+
+- Pattern in namingConventions.files: PascalCase
+- Pattern in namingConventions.classes: PascalCase
+
+---
+id: javaprojects-instinct-function-naming
+trigger: "When defining a new function or method"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: bigBrodyG/JavaProjects
+---
+
+# Javaprojects Instinct Function Naming
+
+## Action
+
+Use camelCase for the function name
+
+## Evidence
+
+- Pattern in namingConventions.functions: camelCase
+
+---
+id: javaprojects-instinct-constant-naming
+trigger: "When declaring a constant"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: bigBrodyG/JavaProjects
+---
+
+# Javaprojects Instinct Constant Naming
+
+## Action
+
+Use SCREAMING_SNAKE_CASE for the constant name
+
+## Evidence
+
+- Pattern in namingConventions.constants: SCREAMING_SNAKE_CASE
+
+---
+id: javaprojects-instinct-import-style
+trigger: "When importing Java classes"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: bigBrodyG/JavaProjects
+---
+
+# Javaprojects Instinct Import Style
+
+## Action
+
+Use relative import paths
+
+## Evidence
+
+- Pattern in importStyle: relative
+
+---
+id: javaprojects-instinct-export-style
+trigger: "When exporting classes or functions"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: bigBrodyG/JavaProjects
+---
+
+# Javaprojects Instinct Export Style
+
+## Action
+
+Use named exports
+
+## Evidence
+
+- Pattern in exportStyle: named
+
+---
+id: javaprojects-instinct-commit-format
+trigger: "When writing a commit message"
+confidence: 0.7
+domain: git
+source: repo-analysis
+source_repo: bigBrodyG/JavaProjects
+---
+
+# Javaprojects Instinct Commit Format
+
+## Action
+
+Write a freeform message without a specific prefix, average length around 68 characters
+
+## Evidence
+
+- Pattern in commits.type: freeform
+- Pattern in commits.averageLength: 68
+
+---
+id: javaprojects-instinct-test-location
+trigger: "When adding new test files"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: bigBrodyG/JavaProjects
+---
+
+# Javaprojects Instinct Test Location
+
+## Action
+
+Place test files in a separate folder from source code
+
+## Evidence
+
+- Pattern in architecture.folderStructure.testLocation: separate
+
+---
+id: javaprojects-instinct-folder-organization
+trigger: "When organizing project files"
+confidence: 0.8
+domain: architecture
+source: repo-analysis
+source_repo: bigBrodyG/JavaProjects
+---
+
+# Javaprojects Instinct Folder Organization
+
+## Action
+
+Use a single-package structure with common folders such as 'Laboratorio' and 'Esercizi'
+
+## Evidence
+
+- Pattern in architecture.folderStructure.type: single-package
+- Pattern in architecture.folderStructure.commonFolders: Laboratorio, Esercizi
+
